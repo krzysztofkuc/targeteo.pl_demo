@@ -1,0 +1,23 @@
+<p-card *ngIf="opinions">
+	<h3>Opinie użytkownika {{opinions[0].OrderDetail.Product.User.UserName}}</h3>
+	<p-table [value]="opinions" responsiveLayout="scroll" autoLayout="true" >
+		<ng-template pTemplate="header">
+			<tr>
+				<th></th>
+				<th>Ocena</th>
+				<th>Komentarz</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-opinionX>
+			<tr>
+				<td>
+					<p-image onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + opinionX.Picture?.Path" [alt]="opinionX.OrderDetail.Product.Title" height="50" [preview]="true"></p-image>
+                    <!-- <img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + opinionX.Picture?.Path" [alt]="opinionX.OrderDetail.Product.Title" style="max-height: 50px;"/> -->
+                    <a routerLink="/produkt/{{opinionX.OrderDetail.Product.ProductId}}">{{opinionX.OrderDetail.Product.Title}}</a>
+                </td>
+				<td><p-rating [(ngModel)]="opinionX.Evaluation" [cancel]="false" readonly="true"></p-rating></td>
+				<td>{{ opinionX.Text }}</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</p-card>

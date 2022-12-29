@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+  <head>
+    <meta charset="utf-8" />
+    <title>targeteo.pl - platforma sprzedażowa</title>
+    <base href="/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="assets/logoico.ico" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+      <link href='http://fonts.googleapis.com/css?family=Audiowide&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Big+Shoulders+Inline+Text&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <!--<link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css" />-->
+</head>
+  <body>
+
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer=""></script>
+
+
+    <script type="text/javascript">
+                         function googleTranslateElementInit() {
+                         new google.translate.TranslateElement(
+                         {
+                           pageLanguage: 'pl',
+                           includedLanguages: 'en',
+                           layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT,
+                           autoDisplay: true,
+                           encodi
+                         },
+                         'google_translate_element');}</script>
+    <div class="hidden" id="google_translate_element"></div>
+
+    <app-root>
+
+      <div *ngIf="!siteLoaded" style="display: flex; justify-content:center; align-items: center; height: 80vh;">
+        <img src="assets/motohunterLogo.png" height="50" style="margin: 10px; margin-left: 20px;">
+        <img src="assets/Triple intersection.gif" height="50" width="50">
+      </div>
+
+      <!--<div class="font-bold text-blue-500 flex align-items-center justify-content-center">
+        <a routerLink='/'><img src="assets/motohunterLogo.png" height="50" style="margin: 10px; margin-left: 20px;"></a>
+        <img src="assets/Triple intersection.gif" height="30">
+      </div>-->
+
+      <!--<div style="display: flex; justify-content:center; align-items: center; height: 80vh;">
+    <img src="assets/Triple intersection.gif" height="100" width="100">
+  </div>-->
+    </app-root>
+      <!--<app-root>Loading...<p-progressBar mode="indeterminate"></p-progressBar></app-root>-->
+  </body>
+</html>

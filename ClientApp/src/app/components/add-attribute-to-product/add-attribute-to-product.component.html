@@ -1,0 +1,80 @@
+<form class="attrs" *ngIf="model" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="field col-12">
+            <label for="attrNameId">Nazwa atrybutu</label>
+            <div id="attrNameId" class="p-inputgroup">
+                <p-autoComplete [(ngModel)]="name"
+                [suggestions]="filteredOptions" 
+                (completeMethod)="nameChanged($event)" 
+                (onSelect)="onSelect($event)" 
+                (focusout)="onFocusOut()" 
+                (keydown.enter)="onFocusOut()"
+                class="searchAutocomplete"
+                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                placeholder="Szukaj"
+                [(ngModel)]="model.Name"
+                [ngModelOptions]="{standalone: true}"></p-autoComplete>
+            </div>
+        </div>
+
+        <h4>Wybierz kategorię</h4>
+        <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedCatCtrl" (onNodeSelect)="onNodeSelect($event)"></p-tree>
+
+        <div class="field col-12" [hidden] = "viewMode == mode.Edit">
+            <label for="attrKindId">Wybierz rodzaj danych atrybutu</label>
+            <div id="attrKindId" class="p-inputgroup">
+                <p-dropdown [options]="attrTypes" [(ngModel)]="selectedTypeCtrl"
+                    placeholder="Wybierz rodzaj" 
+                    optionLabel="value"
+                    [ngModelOptions]="{standalone: true}"
+                    (onChange)="selectedType($event)">
+                </p-dropdown>
+            </div>
+        </div>
+
+    <div>
+
+        <div class="field col-12" style="display: block;" *ngIf="selectedTypeCtrl?.value == at.date">
+            <label for="inputDateId">Wybierz datę</label>
+            <div class="p-inputgroup" id="inputDateId">
+                <p-calendar [(ngModel)]="selectedDate" 
+                    [showIcon]="true" appendTo="body" ngDefaultControl
+                    [yearNavigator]="true" yearRange="1980:2030" selectionMode="single"
+                    [ngModelOptions]="{standalone: true}">
+                </p-calendar>
+            </div>
+        </div>
+
+        <div class="field col-12" *ngIf="selectedTypeCtrl?.value == at.number">
+            <label for="numberId" class="labelBold">Liczba</label>
+            <div id="numberId" class="p-inputgroup" >
+                <div class="col" style="padding-right: 0;">
+                    <p-inputNumber class ="p-inputNumberX" [(ngModel)]="model.Value"
+                                    [ngModelOptions]="{standalone: true}">
+                    </p-inputNumber>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="field col-12" *ngIf="selectedTypeCtrl?.value == at.text">
+            <label for="productTitleX">Tekst</label>
+            <div id="productTitleX" class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" [(ngModel)]="model.Value" pInputText placeholder="Tekst *" formControlName="text">
+                <p-message severity="error" text=" " *ngIf="!form.controls['text'].valid"></p-message>
+            </div>
+        </div>
+
+        <div class="field col-12" *ngIf="selectedTypeCtrl?.value == at.text">
+            <label for="productTitleX">Czy zawiera ?</label>
+            <p-checkbox name="groupname" value="model.Value" [(ngModel)]="model.Value" [ngModelOptions]="{standalone: true}"></p-checkbox>
+            
+        </div>
+
+    </div>
+    <div>
+    </div>
+    <button pButton type="submit" label="Zapisz" class="p-button-secondary bottomSticky float-right"></button>
+  
+</form>

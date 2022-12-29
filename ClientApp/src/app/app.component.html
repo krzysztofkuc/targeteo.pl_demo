@@ -1,0 +1,301 @@
+<main>
+
+  <!-- show when wide -->
+  <div style="width: 100%;" class="hidden-xs desktopMenuBar">
+    <div style="max-width: 1400px; margin: 0 auto;">
+    <div class="card flex justify-content-between flex-wrap">
+      <div class="flex align-items-center justify-content-center">
+        <a routerLink='/'><img src="assets/motohunterLogo.png" height="50" style="margin-left: 20px;"></a>
+      </div>
+
+      <div style="width: 50%;" class="mt-2">
+      <!-- <div class="font-bold flex align-items-center justify-content-center"> -->
+        <div class="grid">
+          <div class="col-6">
+            <div class="p-inputgroup" style="width: 100%;">
+              <!-- <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span> -->
+              <p-autoComplete [(ngModel)]="searchBarService.searchText" 
+                              [suggestions]="searchBarService.quickSearchResults" 
+                              field="Title"
+                              (completeMethod)="searchBarService.searchProducts($event)"
+                              (onSelect)="searchBarService.onSelectProduct($event)"
+                              [style]="{'width':'100%'}"
+                              [inputStyle]="{'width':'100%'}"
+                              placeholder="Szukaj"
+                              [ngModelOptions]="{standalone: true}">
+
+                              <ng-template let-product pTemplate="item">
+                                <div>
+                                    <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /> -->
+                                    <div>{{product.Title}} <small>, kategoria {{product.Category.Name}}</small></div>
+                                </div>
+                            </ng-template>
+                            
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="grid" >
+              <div class="col-8" style="padding-right: 0;">
+                <div class="p-inputgroup">
+                  <!-- <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span> -->
+                  <p-autoComplete [(ngModel)]="searchBarService.searchInCity" 
+                                  [suggestions]="searchBarService.citySearchResults" 
+                                  (completeMethod)="searchBarService.onCityFind($event)" 
+                                  (onSelect)="searchBarService.onCityChange($event)"
+                                  (keydown.enter)="searchBarService.onFocusOut($event)"
+                                  [style]="{'width':'100%'}"
+                                  [inputStyle]="{'width':'100%'}"
+                                  name="searcgInCity"
+                                  placeholder="cała Polska"
+                                  [ngModelOptions]="{standalone: true}">
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-4" style="padding-left: 0;">
+                <div class="p-inputgroup" *ngIf="searchBarService.searchInCity">
+                  <p-dropdown  [options]="searchBarService.distances" [(ngModel)]="searchBarService.selectedCityDistance" (onChange)="searchBarService.searchDistanceChanged($event)" style="min-width: 110px;"></p-dropdown>
+                  <span class="p-inputgroup-addon" style="cursor:pointer" style="width:100%" (click)="searchBarService.onFocusOut($event)"><i class="pi pi-search"></i></span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+        <!-- <div style="width: 400px; height: 60px; border-radius: 65px; margin-left: 10px;">
+          <app-map #mapCmp [mapId]="'mainPageMap'" [(selectedCity)] = "selectedCityVm" style="border-radius: 65px; "></app-map>
+        </div> -->
+      </div>
+
+      <div class="font-bold flex align-items-center justify-content-center">
+        <!-- <button pButton pRipple type="button" icon="pi pi-user" *ngIf="isLoginEnabled" class="p-button-rounded p-button-user p-button-outlined p-2" (click)="op.toggle($event)" id="loginButton"></button> -->
+        <i *ngIf="productService.numberOfUnreadMessaes == 0 && isLoginEnabled" class="pi pi-user mr-2 p-text-secondary" style="font-size: 1.5rem; cursor: pointer" (click)="op.toggle($event)"></i>
+        <i *ngIf="productService.numberOfUnreadMessaes > 0 && isLoginEnabled" class="pi pi-user mr-2 p-text-secondary" pBadge style="font-size: 1.5rem; cursor: pointer" value="{{productService.numberOfUnreadMessaes}}" (click)="op.toggle($event)"></i>
+        <p-button #shoppingCartButton label="Dodaj" icon="pi pi-plus" iconPos="left" (click)="addNewAnnouncement()" class="p-2"></p-button>
+        <app-shopping-cart-btn class="mr-3" style="display: inline-block;"[fontSize]="1.5"> </app-shopping-cart-btn>  
+      </div>
+    </div>
+
+    <span *ngIf="isAdmin">
+      <p-button label="Dodaj kategorię" icon="pi pi-check" (click)="addcategory()" iconPos="left"></p-button>
+      <p-button label="Edytuj kategorię" icon="pi pi-check" (click)="editCategory()" iconPos="left"></p-button>
+      <p-button label="Usuń kategorię" icon="pi pi-check" (click)="deleteCategory()" iconPos="left" ></p-button>
+      <p-button type="button" label="Dodaj nowy atrybut" icon="pi pi-check" (click)="addAttribute()" iconPos="left"></p-button>
+    </span>
+  </div>
+  </div>
+
+<div style="max-width: 1400px; margin: 0 auto;">
+
+  <!-- hidden when wide, show on mobile -->
+  <div class="hidden-sm hidden-md hidden-lg seMenuBar" id="menuBarMobile">
+
+    <div class="flex justify-content-between flex-wrap">
+      <div class="flex align-items-center justify-content-center h-2rem font-bold text-white border-round m-1" [ngClass]="{'w-2rem': !mobileSearchBarIsVisible, 'w-14rem': mobileSearchBarIsVisible}">
+
+        <div *ngIf="!mobileSearchBarIsVisible" >
+          <button pButton type="button" icon="pi pi-bars" label="" class="p-button-lg p-button-text" (click)="showMenuSidebar()"></button>
+        </div>
+
+      </div>
+
+      <div *ngIf="!mobileSearchBarIsVisible" style="width: 0.625rem;" class="flex align-items-center justify-content-center border-round">
+          <a routerLink='/'><img src="assets/motohunterLogo.png"  alt="logo"height="30" ></a>
+      </div>
+
+      <div class="flex font-bold text-white border-round m-1 ">
+
+        <span style="padding-top: 3px">
+          <!-- <button style="max-width: 30px; max-height: 30px;" pButton pRipple type="button" icon="pi pi-search" *ngIf="!mobileSearchBarIsVisible" class="p-button-rounded p-button-secondary p-button-outlined mr-1" (click)="mobileSearchBarVisibility()"></button>
+          <button style="max-width: 30px; max-height: 30px;" pButton pRipple type="button" icon="pi pi-times" *ngIf="mobileSearchBarIsVisible" class="p-button-rounded p-button-secondary p-button-outlined mr-1" (click)="mobileSearchBarVisibility()"></button> -->
+
+
+          <!-- <span class="font-bold text-blue-500 flex align-items-center justify-content-center" style="display: inline-block;"> -->
+            <!-- <button style="max-width: 30px; max-height: 30px;" pButton pRipple type="button" icon="pi pi-user" *ngIf="isLoginEnabled" class="p-button-rounded p-button-user p-button-outlined mr-1" (click)="loginBtnClicked($event);" id="loginButton"></button> -->
+            <i *ngIf="productService.numberOfUnreadMessaes == 0 && isLoginEnabled" class="pi pi-user mr-3 p-text-secondary" style="font-size: 1.0rem; cursor: pointer" (click)="loginBtnClicked($event)"></i>
+            <i *ngIf="productService.numberOfUnreadMessaes > 0 && isLoginEnabled" class="pi pi-user mr-3 p-text-secondary" pBadge style="font-size: 1.0rem; cursor: pointer" value="{{productService.numberOfUnreadMessaes}}" (click)="op.toggle($event)"></i>
+            <!-- <button style="width: 30px !important; height: 30px;" pButton #shoppingCartButton icon="pi pi-plus" label="Dodaj ogłoszenie" iconPos="left" (click)="addNewAnnouncement()" class="mt-2"></button> -->
+            <button style="display: inline-block; height: 10px; padding: 1rem !important" id="xx" pButton type="button" class="p-button-raised p-button-rounded" label="Dodaj ogłoszenie" style="font-size: 0.5rem;" (click)="addNewAnnouncement()"></button>
+            <app-shopping-cart-btn *ngIf="shoppingCartService.totalItemsCount > 0" class="mobile mr-2 ml-2" style="display: inline-block; font-size: 0.1rem;" [fontSize]="1.0"></app-shopping-cart-btn>
+          <!-- </span> -->
+          <!-- <app-shopping-cart-btn style="padding-left: 10px; height: 10x; display: inline-block;"></app-shopping-cart-btn> -->
+        </span>
+
+      </div>
+    </div>
+
+      <!-- <div class="grid p-jc-between p-shadow-7">
+        
+        <div class="col-2" *ngIf="!mobileSearchBarIsVisible" >
+            <button pButton type="button" icon="pi pi-bars" label="" class="p-button-lg p-button-text" style="margin-top: 3px; margin-left: 5px;" (click)="showMenuSidebar()"></button>
+        </div>
+
+        <div class="col-6" *ngIf="!mobileSearchBarIsVisible">
+            <a routerLink='/'><img src="assets/Logo.png" height="40" style="margin-left: 20px; margin-top: 10px;"></a>
+        </div>
+
+        <div class="col-8" [hidden]="!mobileSearchBarIsVisible">
+          <div class="p-inputgroup" style="margin-left: 15px; margin-top: 7px; width: 100%;">
+            <span class="p-inputgroup-addon" (click)="searchProducts($event)"><i class="pi pi-search"></i></span>
+            <p-autoComplete [(ngModel)]="searchText" 
+                          [suggestions]="quickSearchResults" 
+                          (completeMethod)="searchProducts($event)" 
+                          (onSelect)="onSelect($event)" 
+                          (focusout)="onFocusOut()" 
+                          (keydown.enter)="onFocusOut()"
+                          placeholder="Szukaj"
+                          autofocus = "true"
+                          #search>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="col-4" style="padding-top: 15px;">
+            <button pButton pRipple type="button" icon="pi pi-times" *ngIf="mobileSearchBarIsVisible" class="p-button-rounded p-button-secondary p-button-outlined" (click)="mobileSearchBarVisibility()"></button>
+            <button pButton pRipple type="button" icon="pi pi-search" *ngIf="!mobileSearchBarIsVisible" class="p-button-rounded p-button-secondary p-button-outlined" (click)="mobileSearchBarVisibility()"></button>
+            <app-shopping-cart-btn style="padding-left: 10px; height: 10x; display: inline-block;"></app-shopping-cart-btn>
+        </div>
+
+        <button pButton pRipple type="button" icon="pi pi-user" *ngIf="isLoginEnabled"class="p-button-rounded p-button-user p-button-outlined" (click)="openLoginDialog($event)" id="loginButton"></button>
+
+      </div> -->
+
+    </div>
+
+  
+
+  <!-- <p-tabMenu [model]="items" class="hidden-xs"></p-tabMenu> -->
+  <!-- <p-megaMenu [model]="megaItems" class="hidden-xs"></p-megaMenu> -->
+  <p-menubar [model]="items" class="hidden-xs" autoDisplay="true"></p-menubar>
+
+  <div class="card" class="hidden-xs" *ngIf="isLoadingMenu">
+    <div class="flex flex-row flex-wrap">
+      <p-skeleton class="m-1" height="2rem" width="12rem"></p-skeleton>
+      <p-skeleton class="m-1" height="2rem" width="12rem"></p-skeleton>
+      <p-skeleton class="m-1" height="2rem" width="12rem"></p-skeleton>
+      <p-skeleton class="m-1" height="2rem" width="12rem"></p-skeleton>
+      <p-skeleton class="m-1" height="2rem" width="12rem"></p-skeleton>
+    </div>
+  </div>
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+<p-overlayPanel #op for="loginButton" [dismissable]="true" [showCloseIcon]="false">
+  <ng-template pTemplate>
+      <app-login-dialog></app-login-dialog>
+  </ng-template>
+</p-overlayPanel>
+
+<p-dialog header="Login" [(visible)]="loginOverlayService.show" position="top-right" [modal]="true"  [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    
+    <app-login-dialog (logged)="userLoggedGotoAddProduct()"></app-login-dialog>
+
+</p-dialog>
+
+</main>
+<p-sidebar [(visible)]="showSidebar">
+
+    <p-tree [value]="categoriesTree" selectionMode = "single" [(selection)]="selectedMenuNodes" (onNodeSelect)="nodeSelect($event)">
+
+      <ng-template let-node pTemplate="default">
+        <i [class]="node.icon + ' fa-lg'"></i>
+        <a [routerLink]="'/kategoria/' + node.routerLink[2]" *ngIf="node.routerLink.length == 3" class="menuItem" (click)="menuItemClicked($event, node)">
+          {{node.label}}
+        </a>
+        <a [routerLink]="'/kategoria/' + node.routerLink[2] + '/' + node.routerLink[3]" *ngIf="node.routerLink.length > 3" class="menuItem" (click)="menuItemClicked($event, node)">
+          {{node.label}}
+        </a>
+      </ng-template>
+    </p-tree>
+
+    <!-- <p-button label="Dodaj produkt" icon="pi pi-check" (click)="addProduct(
+      
+    )" iconPos="left" *ngIf="isAdmin"></p-button> -->
+    <span *ngIf="isAdmin">
+      <p-button label="Dodaj kategorię" icon="pi pi-check" (click)="addcategory()" iconPos="left"></p-button>
+      <p-button label="Edytuj kategorię" icon="pi pi-check" (click)="editCategory()" iconPos="left"></p-button>
+      <p-button label="Usuń kategorię" icon="pi pi-check" (click)="deleteCategory()" iconPos="left" ></p-button>
+      <p-button type="button" label="Dodaj nowy atrybut" icon="pi pi-check" (click)="addAttribute()" iconPos="left"></p-button>
+    </span>
+    <!-- <p-button  label="Wszystkie zamówienia" icon="pi pi-check" [routerLink]="['/allOrders']" *ngIf="isAdmin"> </p-button> -->
+
+</p-sidebar>
+
+  <!-- Site footer -->
+<footer class="site-footer">
+  <div class="flex justify-content-around flex-wrap" style="padding: 20px; max-width: 1200; margin-right: 0px;">
+      <div>
+        <h6 [ngStyle]="{'font-size': isMobilePhone ? '0.6rem' : '1rem' }">Kontakt</h6>
+        
+          targeteo.pl<br/>
+          Stolema 41<br/>
+          80-177 Gdańsk <br/>
+          <a href="mailto:biuro@targeteo.pl">biuro@targeteo.pl</a>
+        
+      </div>
+      <!-- <hr> -->
+      <div>
+        <h6>Kategorie</h6>
+        <ul class="footer-links">
+
+          <li *ngFor="let item of items; let i = index">
+
+            <!--this routerLink is aaray, have to change it-->
+            <!-- <a [routerLink]='[item.routeLink]'>{{item.label}}</a> -->
+            <a>{{item.label}}</a>
+            
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>Skróty</h6>
+        <ul class="footer-links">
+          <li><a routerLink='/regulations'>Regulamin</a></li>
+          <li><a routerLink='/privacyPolicy'>Polityka prywatności</a></li>
+        </ul>
+      </div>
+
+  </div>
+  
+  <!-- <div class="flex justify-content-center flex-wrap card-container yellow-container">
+    <img  class="flex align-items-center justify-content-center" src="../assets/banki_HP21000x60.png" style="width: 100%; max-width: 1000px;"/>
+  </div> -->
+
+  <div class="col-12">
+    <div class="md:col-8 sm:col-6 xs:col-12">
+      <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by 
+    <a href="#">Krzysztof Kuc</a>.
+      </p>
+    </div>
+
+    <div class="md:col-6 sm:col-6 xs:col-12">
+      <ul class="social-icons">
+        <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+      </ul>
+    </div>
+  </div>
+  
+</footer>
+
+<p-dialog [(visible)]="displayModalShoppingCart" [modal]="true" [style]="{width: '50vw'}" [breakpoints]="{'960px': '90vw'}" id="dialogShoppingCart"
+    [draggable]="false" [resizable]="false">
+      <app-shopping-cart-dialog [isBasketShoppingCart] = 'false' ></app-shopping-cart-dialog>
+      <ng-template pTemplate="footer"  [style]="{padding: '0 1rem 1.5rem !important'}" class="aaa" id="footerXXXXX">
+        <span style="display: inline-block;">
+          <button pButton type="button" label="Kontynuuj" class="p-button-secondary" (click)="displayModalShoppingCart = false;" style="margin: 5px;"></button>
+        </span>
+        <span style="display: inline-block;">
+          <button pButton type="button" label="Kup i zapłać" class="p-button-success" (click)="completeOrder()" icon="pi pi-check" style="margin: 5px;"></button>
+        </span>
+      </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="mobileSearchBarIsVisible" [modal]="true" [draggable]="false" [resizable]="false" (onShow)="mobileSearchBarShown($event)" style="width: 100%; height: 100%;">
+      <app-search-products #mobileSearchModalMap style="width: 600px; height: 800px;"></app-search-products>
+      <!-- <ng-template pTemplate="footer"  [style]="{padding: '0 1rem 1.5rem !important'}" class="aaa" id="footerXXXXX">
+        
+      </ng-template> -->
+</p-dialog>

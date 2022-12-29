@@ -1,0 +1,46 @@
+<p-card header="Dodaj opinię">
+    <div class="grid center">
+        <div class="col center">
+            <img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + model.OrderDetails.Product.Pictures[0]?.Path" [alt]="model.OrderDetails.Product.Title" style="max-height: 100px; max-width: 100px;"/>
+        </div>
+        <div class="col center">
+            <a [routerLink]="'/produkt/' + model.OrderDetails.Product.ProductId">
+                <span class="font-weight-bold text-primary">{{ model.OrderDetails.Product.Title }}</span>
+              </a>
+        </div>
+        <div class="col">
+            cena: {{ model.OrderDetails.Product.Price }} zł
+        </div>
+    </div>
+
+    <h5>Wybierz zdjęcia</h5>
+    <p-fileUpload name="demo[]" url="addPicture($event)" customUpload="true" (uploadHandler)="onUpload($event)" [auto]="true" (onUpload)="onUpload($event)"
+                  multiple="multiple" accept="image/*" maxFileSize="1000000" [showCancelButton]="true" chooseLabel="Dodaj zdjęcie">
+      <ng-template pTemplate="content">
+        <div *ngIf="model.Pictures?.length">
+          <div *ngFor="let pic of model.Pictures">
+            <span><img *ngIf="pic.Path" [src]="'assets\\upload\\' + pic.Path" style="max-height: 150px; max-width: 150px; cursor: pointer;" /></span>
+            <span class="flex justify-content-end flex-wrap card-container green-container" style="display: inline;">
+              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deletePicture(pic)"></button>
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </p-fileUpload>
+
+    <h5>Ocena</h5>
+    <p-rating [(ngModel)]="model.Evaluation" [cancel]="false" style="padding-left: 10px;"></p-rating>
+
+    
+        <label for="firstname">Opinia*</label>
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <textarea rows="3" cols="70" id="firstname" [(ngModel)]="model.Text" pInputTextarea name="firstName" aria-describedby="firstrNameDesc"></textarea>
+        </div>
+        <!-- <small id="firstrNameDesc" class="p-error" 
+            *ngIf="form.controls['firstName'].errors">
+            Imię jest wymagane
+        </small> -->
+    
+        <button pButton pRipple type="button" icon="pi pi-check" label="Zapisz" (click)="save()" class="p-button-secondary" style="margin-top: 15px;"></button>
+</p-card>

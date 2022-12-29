@@ -1,0 +1,38 @@
+<div *ngIf="orderSummary">
+    <div *ngFor="let order of orderSummary.OneUserOrders">
+        <p-card header="Zamówienie nr. {{orderSummary.Id}}" subheader="Suma: {{ orderSum }} PLN" styleClass="p-card-shadow mb-2">
+            status: {{statusCaption}}
+            <button pButton type="button" class="p-button-raised p-button-rounded" *ngIf="statusCaption === 'Nieopłacone'" (click)="pay()">Zapłać</button>
+            <p-divider></p-divider>
+
+            <div class="col-12">
+                <div *ngFor="let item of order.OrderDetails">
+                    <a [routerLink]="'/produkt/' + item.Product.ProductId">
+                        <div class="grid" >
+                            <div class="col-3">
+                                <img class="d-flex" style="max-height: 70px;" [src]="'assets\\upload\\' + item.Product.Pictures[0]?.Path" alt="{{item.Product.Title}}">
+                            </div>
+                            <div class="col-5">
+                                <!-- <a [routerLink]="'/produkt/' + item.Product.ProductId" style="cursor: pointer;"> -->
+                                    <label class="font-weight-bold">{{ item.Product.Title }}</label>
+                                <!-- </a> -->
+                            </div>
+                            <div class="col-3">
+                                <label>Ilość: {{item.Quantity}}</label>
+                            </div>
+                            <div class="col-1">
+                                Cena: {{ item.Product.Price | number: '1.2-2'}} zł
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12">
+                koszt dostawy: {{order?.UserSupplyMethod?.PricePerUnit}} zł
+            </div>
+            <div class="col-12">
+                Adres dostawy: {{order.City}} {{order.PostalCode}} {{order.Address}}
+            </div>
+        </p-card>
+    </div>
+</div>

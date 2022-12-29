@@ -1,0 +1,32 @@
+<p-tabView>
+  <p-tabPanel header="Konto bankowe" leftIcon="pi pi-money-bill" tooltip="Sprawdź stan swojego konta">
+      <p><app-user-account></app-user-account></p>
+  </p-tabPanel>
+  <p-tabPanel header="Metody dostawy" rightIcon="pi pi-car" tooltip="Twoje metody dostawy">
+      <p><p-panel header="Twoje metody dostawy">
+        <ng-template pTemplate="icons">
+                <p-button type="button" icon="pi pi-plus" class="p-button-rounded" label="Dodaj nową metodę"  (click)="showAddSupplyMethodDialog()"></p-button>
+        </ng-template>
+    
+          <div *ngIf="!model?.User?.UserSupplyMethods">
+            brak metod dostawy
+          </div>
+          <ul *ngIf="model?.User?.UserSupplyMethods">
+            <li *ngFor="let sm of model.User.UserSupplyMethods">
+                {{sm.SupplyMethod.Company}}, {{sm.SupplyMethod.SpecificDeliveryMethod}} [{{sm.TimeInHours}} h] {{sm.PricePerUnit}} zł
+                <button pButton pRipple type="button" icon="pi pi-minus" class="p-button-rounded p-button-sm"  (click)="deleteSupplyMethod(sm)"></button>
+            </li>
+          </ul>
+    </p-panel>
+    
+    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-sm" label="Zapisz"  (click)="saveUserProfile()"></button></p>
+  </p-tabPanel>
+  <!-- <p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star-fill" tooltip="1990">
+      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+              cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+              Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+  </p-tabPanel> -->
+</p-tabView>
+
+
+<!-- <a routerLink='/user-profile/user-account'>Twoje konto</a> -->

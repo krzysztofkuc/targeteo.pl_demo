@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "targeteo.pl", "targeteo.pl.csproj", "{BBF58027-0780-43A4-A3F8-C06D65D24D65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBF58027-0780-43A4-A3F8-C06D65D24D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF58027-0780-43A4-A3F8-C06D65D24D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF58027-0780-43A4-A3F8-C06D65D24D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF58027-0780-43A4-A3F8-C06D65D24D65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {347EFA01-8A0A-41B1-A3EF-39EBE1B9B20C}
+	EndGlobalSection
+EndGlobal

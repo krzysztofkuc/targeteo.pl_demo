@@ -1,0 +1,43 @@
+    <p-card header="Twój koszyk" subheader="Suma: {{ totalSum }} PLN" styleClass="p-card-shadow">
+      <p-divider></p-divider>
+
+      <div *ngFor="let item of items">
+
+        <div class="grid">
+
+              <div class="col">
+                <a [routerLink]="'/produkt/' + item.product.ProductId">
+                  <img style="max-width: 150px; max-height: 50px;" [src]="'assets\\upload\\' + item.product.Pictures[0]?.Path" alt="item.product.Title"/>
+                </a>
+              </div>
+
+              <div class="col-">
+
+                  <a [routerLink]="'/produkt/' + item.product.ProductId">
+                    <span class="font-weight-bold text-primary">{{ item.product.Title }}</span>
+                  </a>
+              </div>
+
+              <div class="col">
+                <span class="font-weight-bold">Cena: {{ item.product.Price | number: '1.2-2'}} zł </span>
+              </div>
+
+              <div class="col">  
+                <p-inputNumber [(ngModel)]="item.quantity" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [size]="1" [min]="1"
+                  decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" 
+                  incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+              </div>
+
+              <div class="col-1">
+                  <button pButton pRipple type="button" icon="pi pi-trash" (click)="clearItem(item)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+              </div>
+
+          </div>
+        </div>
+
+    <ng-template pTemplate="footer" *ngIf="isBasketShoppingCart">
+      <p-divider></p-divider>
+      <button pButton type="button" label="Zrealizuj" class="p-button-success" (click)="completeOrder()" icon="pi pi-check"></button>
+  </ng-template>
+
+</p-card>

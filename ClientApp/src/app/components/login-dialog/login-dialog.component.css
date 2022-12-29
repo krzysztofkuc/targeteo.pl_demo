@@ -1,0 +1,7 @@
+.buttonMsgs{
+    width: 100% !important;
+}
+
+:host ::ng-deep button {
+    width: 100%;
+  }

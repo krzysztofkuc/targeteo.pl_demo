@@ -1,0 +1,4 @@
+:host ::ng-deep .spinnerSendingMessage{
+    width: 50px !important;
+    max-width: 60px !important;
+}

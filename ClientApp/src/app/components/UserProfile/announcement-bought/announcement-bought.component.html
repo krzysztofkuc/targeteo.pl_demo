@@ -1,0 +1,33 @@
+<p-table *ngIf="announcements" [value]="announcements" responsiveLayout="scroll" autoLayout="true" >
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>Produkt</th>
+            <th>Kategoria</th>
+            <th>Cena</th>
+            <th>Status</th>
+            <th>Akcja</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-orderDetails>
+        <tr style="cursor: pointer;" (click)="redirectToOrderSummary($event, orderDetails)">
+            <td><img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + orderDetails.Product.Pictures[0]?.Path" [alt]="orderDetails.Product.Title" style="max-width: 100px;"/></td>
+            <td>{{orderDetails.Product.Title}}</td>
+            <td>{{orderDetails.Product.Category.Name}}</td>
+            <td>{{orderDetails.Product.Price | number: '1.2-2'}} zł</td>
+            <td>
+                {{orderDetails.OneUserOrder.Status}}
+                <!-- <div *ngIf="product.DateTo <= timeNow"><small>zakończono: {{product.DateTo | date:'short'}}</small></div>
+                <div *ngIf="product.DateTo >= timeNow"><small>aktywne do: {{product.DateTo | date:'short'}}</small></div> -->
+                <!-- <button   pButton *ngIf="product.DateTo >= timeNow" type="button" icon="pi pi-times" label="Zakończ" class="p-button-sm p-button-text" (click)="endAnnouncementClick($event, product)"></button>
+                <button pButton *ngIf="product.DateTo <= timeNow" type="button" icon="pi pi-check" label="Aktywuj" class="p-button-sm p-button-text" (click)="activateAnnouncementClick($event, product)"></button>
+                <button pButton *ngIf="product.DateTo >= timeNow" type="button" icon="pi pi-check" label="+30 dni" class="p-button-sm p-button-text" (click)="addAnnouncementActivityDaysClick($event, product)"></button>
+                <button pButton pRipple type="button" label="Edycja" (click)="editProduct(product)" class="p-button-outlined p-button-secondary"></button> -->
+            </td>
+            <td>
+                <button id="btnEvaluate" *ngIf="orderDetails.OneUserOrder.Status != orderStatus.canceled" pButton class="p-button-secondary" (click)="addOrderOpinion(orderDetails, $event)">Oceń</button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+

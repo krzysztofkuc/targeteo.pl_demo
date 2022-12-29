@@ -1,0 +1,19 @@
+<p-card header="Rejestracja" styleClass="p-card-shadow">
+  
+  <form [formGroup]="form" (ngSubmit)="register()">
+
+    <div class="p-fluid">
+      <div class="field">
+          <label for="firstname1">Email</label>
+          <input type="text" id ="firstname1" [(ngModel)]="loginModel.Email" pInputText placeholder="Email *" formControlName="username">
+      </div>
+      <div class="field">
+          <label for="lastname1">Password</label>
+          <input id="lastname1" type="password" [(ngModel)]="loginModel.Password" pInputText placeholder="Password *" formControlName="password">
+      </div>
+    </div>
+
+    <p-button type="submit" label="Zarejestruj" icon="pi pi-check" iconPos="left"></p-button>
+  </form>
+
+</p-card>

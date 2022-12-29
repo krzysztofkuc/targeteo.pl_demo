@@ -1,0 +1,22 @@
+<form [formGroup]= "form" (ngSubmit)="requestForWithdraw()">
+    <p-message severity="info" text="Wypłacone środki będą pomniejszone o 4% prowizji. Na Twój adres zostanie wysłany email, w którym będziesz mógł potwierdzić wypłatę" styleClass="mr-2"></p-message>
+    <div class="field col-12 md:col-6">
+        <label for="accountNo">Nr konta*</label>
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-money-bill"></i></span>
+            <p-inputMask mask="99-9999-9999-9999-9999-9999-9999" [(ngModel)]="model.AccountNo" placeholder="99-9999-9999-9999-9999-9999-9999"
+            formControlName="accountNo" style="width: 100%"></p-inputMask>
+        </div>
+        <small id="accountNoDesc" class="p-error"
+            *ngIf="form.controls['accountNo'].errors">
+            Nr konta jest wymagany
+        </small>
+    </div>
+    <div class="field col-12 md:col-6">
+      <div class="p-inputgroup">
+        <p-checkbox [(ngModel)]="model.SaveAccountNo" [formControl]="form.controls['saveAccountNo']" label="Zapisz numer konta w moim profilu" [binary]="true" ></p-checkbox>
+      </div>
+
+    </div>
+    <button pButton pRipple type="submit" label="Wypłać" class="p-button-success"></button>
+</form>

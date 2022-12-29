@@ -1,0 +1,28 @@
+<div *ngIf="!isSiteLoaded"  style="display: flex; justify-content:center; align-items: center; height: 80vh;">
+    <img src="assets/Triple intersection.gif" height="100" width="100">
+</div>
+
+<h4 class="pt-5 sm:pt-5 md:pt-5 lg:pt-0">Wiadomości</h4>
+
+<p-table [value]="model" responsiveLayout="scroll" autoLayout="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>Od</th>
+            <th>Produkt</th>
+            <th>Wiadomość</th>
+            <th>Data pierwszej wiadomości</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-prodMsgs>
+        <tr style="cursor: pointer; font-weight: bold;" (click)="rowClick(prodMsgs[0]);"
+        [ngStyle]="{'font-weight': (prodMsgs[0].UnreadMessages > 0) ? 'bold' : 'normal'}">
+            <td><img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + prodMsgs[0].Product.Pictures[0]?.Path" [alt]="prodMsgs[0].Product.Title" style="max-width: 100px;"/></td>
+            <td>{{prodMsgs[0].UserFrom.Email}}</td>
+            <td>{{prodMsgs[0].Product.Title}}</td>
+            <td>{{prodMsgs[0].Content}}</td>
+            <td>{{prodMsgs[0].Date |  date:'short'}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+

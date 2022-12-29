@@ -1,0 +1,72 @@
+<div class="field col-12" style="min-height: 400px">
+
+    <form [formGroup]= "form" (ngSubmit)="saveSupplyMethods()">
+        <p-card styleClass="p-card-shadow mb-2">
+
+            <div class="field col-12">
+                <label for="productCity">Wybierz metodę dostawy lub dodaj nową</label>
+                <div id="productCity" class="p-inputgroup">
+                <!-- <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span> -->
+                <!-- <input type="text" [(ngModel)]="model.CurrentProduct.City.City" pInputText placeholder="Wpisz metodę dostawy" formControlName="productCity" name="productCity" (input)="onCityChange($event)"> -->
+            
+                <p-dropdown [options]="model.SupplyMethods" [(ngModel)]="selectedSupplyMethod"
+                            placeholder="Wybierz rodzaj"
+                            [showClear]="true"
+                            formControlName = "supplyMethodCtrl"
+                            >
+            
+                            <ng-template pTemplate="selectedItem">
+                            <div *ngIf="selectedSupplyMethod">
+                                <div>{{selectedSupplyMethod.Company}}, {{selectedSupplyMethod.SpecificDeliveryMethod}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-item pTemplate="item">
+                            <div >
+                                <div>{{item.Company}}, {{item.SpecificDeliveryMethod}}</div>
+                            </div>
+                        </ng-template>
+            
+                </p-dropdown>
+            </div>
+            <small class="p-error" *ngIf="form.controls['supplyMethodCtrl'].errors">
+                Czas wysyłki jest wymagany</small>
+            </div>
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label id="priceLabel" for="price">Cena wysyłki*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-money-bill"></i></span>
+                        <input id="price" type="number" [(ngModel)]="productSupplyMethod.PricePerUnit" pInputText formControlName="price" name="Cena wysyłki" aria-describedby="price">
+                    </div>
+                    <small class="p-error" *ngIf="form.controls['price'].errors">
+                        Cena wysyki jest wymagana
+                    </small>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="time" id="timeLabel">Czas dostarczenia*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-clock"></i></span>
+                        <input id="time" type="number" [(ngModel)]="productSupplyMethod.TimeInHours" pInputText formControlName="time" name="time" aria-describedby="time">
+                    </div>
+                    <small class="p-error" *ngIf="form.controls['time'].errors">
+                        Czas wysyłki jest wymagany</small>
+                </div>
+            </div>
+        </p-card>
+        <div class="flex flex-row-reverse flex-wrap">
+            <button pButton pRipple [disabled]="form.invalid" type="submit" icon="pi pi-check" class="p-button-sm" label="Zapisz"></button>
+        </div>
+
+        <!-- <app-validation-summary-info [form]="form"></app-validation-summary-info> -->
+    </form>
+    <!-- <ul *ngIf="model?.CurrentProduct?.SupplyMethods">
+        <li *ngFor="let sm of model.CurrentProduct.SupplyMethods">
+          {{sm.Company}}, {{sm.SpecificDeliveryMethod}}
+          <button pButton pRipple type="button" icon="pi pi-minus" class="p-button-rounded p-button-sm"  (click)="deleteSupplyMethod(sm)"></button>
+        </li>
+    </ul> -->
+    <!-- <p-message severity="error" text="Dodaj conajmniej jedną metodę dostawy" *ngIf="!addProductForm.controls['productCity'].valid"></p-message> -->
+  </div>
+
+  

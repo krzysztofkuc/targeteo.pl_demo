@@ -1,0 +1,189 @@
+<!-- <div *ngIf="orderCompleted">
+    <div style="width: 100%; background-color: #BDE3C7; color: #495057; height: 250px; border-radius: 10px; padding: 17px;">
+        <h1>Zamówienie zostało złożone.</h1>
+        <h3>Wysłaliśmy na Twój adres email wiadomość z podsumowaniem zamówienia.</h3>
+    </div>
+    <button pButton pRipple type="button" icon="pi pi-check" label="kontynuuj zakupy" (click)="gotoPreviousPage()" class="p-button-success" style="width: 100%; margin-top: 15px;"></button>
+</div> -->
+
+<div id="orderForm" *ngIf="model">
+    <p-card header="Zamówienie" subheader="od {{model.Items[0].product.User.Email}}, suma: {{ totalSum }} PLN" styleClass="p-card-shadow mb-2">
+        <p-divider></p-divider>
+
+        <div *ngFor="let item of model.Items">
+            <div class="grid">
+          
+                <div class="col">
+                  <a [routerLink]="'/produkt/' + item.product.ProductId">
+                    <img style="max-width: 100px;" [src]="'assets\\upload\\' + item.product.Pictures[0]?.Path" alt="item.product.Title"/>
+                  </a>
+                </div>
+  
+                <div class="col-3">
+  
+                    <a [routerLink]="'/produkt/' + item.product.ProductId">
+                      <span class="font-weight-bold text-primary">{{ item.product.Title }}</span>
+                    </a>
+                </div>
+  
+                <div class="col">
+                  <span class="font-weight-bold">Cena: {{ item.product.Price | number: '1.2-2'}} zł </span>
+                </div>
+  
+                <div class="col">  
+                  <p-inputNumber [(ngModel)]="item.quantity" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [size]="1" [min]="1"
+                    decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+                </div>
+  
+                <div class="col-1">
+                    <button pButton pRipple type="button" icon="pi pi-trash" (click)="clearItem(item)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                </div>
+  
+            </div>
+        </div>
+    </p-card>
+    <form [formGroup]= "form" (ngSubmit)="saveOrder()">
+        <p-accordion>
+            <p-accordionTab #accordionPersonalData [selected]="true" header="Dane adresowe">
+               
+    <p-card header="Dane adresowe" styleClass="p-card-shadow mb-2">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label for="firstname">Imię*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input id="firstname" type="text" [(ngModel)]="model.FirstName" pInputText formControlName="firstName" name="firstName" aria-describedby="firstrNameDesc">
+                    </div>
+                    <small id="firstrNameDesc" class="p-error" 
+                        *ngIf="form.controls['firstName'].errors">
+                        Imię jest wymagane
+                    </small>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="surname">Nazwisko*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input type="text" pInputText [(ngModel)]="model.LastName"  formControlName="surname" name="surname" id="surname" aria-describedby="surnameDesc">
+                    </div>
+                    <small id="surnameDesc" class="p-error" 
+                        *ngIf="form.controls['surname'].errors">
+                        Nazwisko jest wymagane
+                    </small>
+                </div>
+                <div class="field col-12">
+
+                    <label for="street">Ulica*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
+                        <textarea [(ngModel)]="model.Address" type="text" rows="2" pInputTextarea formControlName = "street" name="address" id="street" aria-describedby="streetDesc"></textarea>
+                    </div>
+                    <small id="streetDesc" class="p-error" 
+                        *ngIf="form.controls['street'].errors">
+                        Ulica jest wymagana
+                    </small>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="city">Miasto*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
+                        <input type="text" [(ngModel)]="model.City" pInputText formControlName = "city" name="city" id="city" aria-describedby="cityDesc">
+                    </div>
+                    <small id="cityDesc" class="p-error" 
+                        *ngIf="form.controls['city'].errors">
+                        Miasto jest wymagane
+                    </small>
+                </div>
+                <div class="field col-12 md:col-3">
+
+                    <label for="state">Województwo*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
+                        <input [(ngModel)]="model.State" type="text" pInputText formControlName = "region" name="state" id="state" aria-describedby="regionDesc">
+                    </div>
+                    <small id="regionDesc" class="p-error" 
+                        *ngIf="form.controls['region'].errors">
+                            Wojewdztwo jest wymagane
+                        </small>
+                </div>
+                <div class="field col-12 md:col-3">
+
+                    <label for="zipcode">Kod pocztowy*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
+                        <input [(ngModel)]="model.PostalCode" type="text" pInputText formControlName = "zipCode" name="zipcode" id="zipcode" aria-describedby="zipcodeDesc">
+                    </div>
+                    <small id="zipcodeDesc" class="p-error" *ngIf="form.controls['zipCode'].errors">
+                        Kod pocztowy
+                    </small>
+                </div>
+                <div class="field col-12 md:col-6">
+
+                    <label for="email">Email*</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
+                        <input [(ngModel)]="model.Email" type="text" pInputText formControlName = "email" name="email" id="email" aria-describedby="emailDesc">
+                    </div>
+                    <small id="emailDesc" class="p-error" *ngIf="form.controls['email'].errors">
+                        Email jest wymagany
+                    </small>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="phoneNo">Nr telefonu* (dla kuriera)</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
+                        <input [(ngModel)]="model.Phone" type="text" pInputText formControlName = "phoneNo" name="phoneNo" id="phoneNo">
+                        <!-- <p-message severity="error" text="" *ngIf="!form.controls['phoneNo'].valid"></p-message> -->
+                    </div>
+                    <small id="phoneNoDesc" class="p-error" *ngIf="form.controls['phoneNo'].errors">
+                        Nr telefonu jest wymagany
+                    </small>
+                </div>
+            </div>
+    </p-card>
+
+</p-accordionTab>
+</p-accordion>
+    <p-card header="Forma wysyłki" styleClass="p-card-shadow mb-2">
+
+        <div *ngFor="let productSm of model.Items[0].product.User.UserSupplyMethods; index as i" class="field-checkbox">
+            <p-radioButton [inputId]="productSm.SupplyMethod.SpecificDeliveryMethod" [value]="productSm" [(ngModel)]="model.SelectedSupplyMethod" formControlName="supplyMethod" style="cursor: pointer;"></p-radioButton>
+            <label [for]="productSm.SupplyMethod.SpecificDeliveryMethod" style="cursor: pointer;">
+                <img src="../assets/inpostKurierSmall.png" *ngIf="productSm.SupplyMethod.SpecificDeliveryMethod == 'Kurier'"/>
+                <img src="../assets/inpostPaczkomatySmall.png" *ngIf="productSm.SupplyMethod.SpecificDeliveryMethod == 'Paczkomaty'"/>
+                {{productSm.PricePerUnit | number: '1.2-2'}} zł [{{productSm.TimeInHours}} h]
+                <p-button class="p-button-warning" label="Znajdź paczkomat" (click)="angularInpostGeowidgetService.openModalWidget.next()" [hidden]="!(model.SelectedSupplyMethod?.SupplyMethod?.SpecificDeliveryMethod == 'Paczkomaty')" *ngIf="productSm.SupplyMethod.SpecificDeliveryMethod == 'Paczkomaty'" [style]="{'margin-left' :'15px'}"></p-button>
+            </label>
+        </div>
+
+        <span *ngIf="selectedSupplyMethod?.SupplyMethod.SpecificDeliveryMethod == 'Paczkomaty'">Paczkomat: {{paczkomatAdress}}</span>
+
+        <lib-angular-inpost-geowidget
+                [widgetType]="geowidgetType.MODAL"
+                (onPointSelect)="selectPaczkomat($event)">
+        </lib-angular-inpost-geowidget>
+
+        <!-- <lib-angular-inpost-geowidget
+                [widgetType]="WIDGET"
+                [widgetType]="WIDGET"
+                (onPointSelect)="selectPoint($event)"></lib-angular-inpost-geowidget> -->
+
+        <!-- <div id="easypack-map" [hidden]="selectedSupplyMethod?.SpecificDeliveryMethod == 'Paczkomaty')"></div> -->
+
+        <!-- <div *ngFor= "let supplyMethod of model.SupplyMethods; let i='index'; let odd = odd; let even = even">
+            <p-radioButton name="groupname{{i}}" [value]="supplyMethod.Company" [(ngModel)]="selectedSupplyMethod" inputId="sMethod{{i}}" ></p-radioButton>
+            <label for="groupname{{i}}">{{supplyMethod.Company}}</label>
+        </div> -->
+
+    </p-card>
+    <!-- <p-card header="Obsługiwane płatności" styleClass="p-card-shadow mb-2">
+        <img  class="flex align-items-center justify-content-center" src="../assets/banki_HP2820x150.png" style="width: 100%; max-width: 1000px;"/>
+    </p-card>
+
+    <div style="padding: 10px">
+        <p-button type="submit" label="Zamawiam i płacę" icon="pi pi-check" iconPos="left" [disabled]="!form.valid" ></p-button>
+    </div> -->
+    </form>
+</div>
+    <div id="overlayProgressSpinner" *ngIf="spinnerVisible">
+        <p-progressSpinner></p-progressSpinner>
+    </div>

@@ -1,0 +1,122 @@
+<!--<p-progressBar mode="indeterminate" [hidden]="siteLoaded"></p-progressBar>-->
+<div *ngIf="!siteLoaded"  style="display: flex; justify-content:center; align-items: center; height: 80vh;">
+  <img src="assets/Triple intersection.gif" height="100" width="100">
+</div>
+
+<div class="pt-5 sm:pt-5 md:pt-5 lg:pt-0">
+</div>
+
+  <p-card header="Dodaj ogłoszenie" *ngIf="model">
+    <div>
+      <!-- <div *ngFor="let url of this.urls" style="display: inline-block;">
+          <app-add-picture (addPicture)='addPicture($event)' (deletePicture)='deletePicture($event)' [url]="url"></app-add-picture>
+      </div> -->
+    </div>
+
+    <div *ngIf="userService.IsAdmin">
+      <!-- {{this.progress}} -->
+      <span *ngFor="let attr of model.CurrentProduct.Attributes; let i = index;">
+        <div>
+          {{attr.CategoryAttribute.Name}}: {{attr.Value}}
+          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded" (click)="editAttribute(attr)"></button>
+          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded" (click)="deleteAttribute(attr)"></button>
+        </div>
+      </span>
+    </div>
+
+    <!-- <div id="ol-map" class="map-container" style="width: 500px; height: 500px;"></div> -->
+
+    <form [formGroup]="addProductForm" style="margin-top: 20px;" (ngSubmit)="onSubmit(addProductForm.value)">
+
+      <div class="card">
+        <h5>Wybierz zdjęcia</h5>
+        
+          <p-fileUpload name="demo[]" url="addPicture($event)" customUpload="true" (uploadHandler)="onUpload($event)" [auto]="true" (onUpload)="onUpload($event)"
+                        multiple="multiple" accept="image/*" maxFileSize="5000000" [showCancelButton]="true" chooseLabel="Dodaj zdjęcie">
+            <ng-template pTemplate="content">
+              <div *ngIf="model.CurrentProduct.Pictures?.length">
+                <div *ngFor="let pic of model.CurrentProduct.Pictures">
+                  <span><img *ngIf="pic.Path" [src]="'assets\\upload\\' + pic.Path" style="max-height: 150px; max-width: 150px; cursor: pointer;" /></span>
+                  <span class="flex justify-content-end flex-wrap card-container green-container" style="display: inline;">
+                    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deletePicture(pic)"></button>
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </p-fileUpload>
+        
+          <p-message severity="error" text="Dodaj przynajmnije jedno zdjęcie" *ngIf="model?.CurrentProduct?.Pictures == null && uploadedFiles?.length == 0"></p-message>
+      </div>
+
+      <div>
+        <div class="field col-12">
+          <label for="productCity">Miejscowość</label>
+          <div id="productCity" class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input type="text" [(ngModel)]="model.CurrentProduct.City.City" pInputText placeholder="Nazwa miasta *" formControlName="productCity" name="productCity" (input)="onCityChange($event)">
+          </div>
+          <p-message severity="error" text="Nazwa miasta jest wymagana" *ngIf="!addProductForm.controls['productCity'].valid"></p-message>
+        </div>
+
+        <div style="height: 200px;">
+          <app-map #mapCmpAddProd [mapId]="'addProductMap'" [(selectedCity)]="model.CurrentProduct.City" style="width: 300px; padding: 10px;"></app-map>
+        </div>
+
+        <div class="field col-12 mt-4">
+          <label for="productTitleX">Nazwa produktu</label>
+          <div id="productTitleX" class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input type="text" [(ngModel)]="model.CurrentProduct.Title" pInputText placeholder="Nazwa produktu *" formControlName="productTitle">
+          </div>
+            <p-message severity="error" text="Nazwa produktu jest wymagana" *ngIf="!addProductForm.controls['productTitle'].valid"></p-message>
+            <!-- <small class="p-error"  *ngIf="addProductForm.controls['productTitle'].errors">
+              Nazwa jest wymagana
+          </small> -->
+        </div>
+
+        <!-- here add statis info about suppl methods -->
+        <ul *ngIf="model?.User?.UserSupplyMethods">
+          <li *ngFor="let sm of model.User.UserSupplyMethods">
+            {{sm.SupplyMethod.Company}}, {{sm.SupplyMethod.SpecificDeliveryMethod}} [{{sm.TimeInHours}} h] {{sm.PricePerUnit}} zł
+          </li>
+        </ul>
+
+        <h4>Wybierz kategorię</h4>
+        <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedCatCtrl" (onNodeSelect)="onNodeSelect($event)"></p-tree>
+
+        <span [formGroup]="nestedFormGroup">
+          <h4>Parametry produktu
+            
+            <!-- <p-message severity="info" text="Wypełniając parametry pomagasz użytkownikom w znalezieniu Twojego przedmiotu" class="ml-1"></p-message> -->
+          </h4>
+          <p-message severity="warn"  *ngIf="!fillNewAttributes" styleClass="p-mr-2" text="Po wybraniu kategorii pojawią się w tym miejscu parametry, które należy wypełnić"></p-message>
+          <p-message severity="warn" *ngIf="fillNewAttributes" styleClass="p-mr-2" text="Wypełnij nowe parametry "></p-message>
+
+          <app-add-attributes-to-new-product #attrs [formGroup]="addProductForm.controls.nestedFormGroup" [(model)]="attrsToAdd" [productAttributes]="model.CurrentProduct.Attributes"></app-add-attributes-to-new-product>
+        </span>
+
+        <h4>Informacje podstawowe</h4>
+        <div class="field col-12">
+          <label>Opis</label>
+          <div id="quantityId" class="p-inputgroup">
+            <p-editor [(ngModel)]="model.CurrentProduct.Description" [style]="{'height':'320px', 'width':'100%'}" ngDefaultControl formControlName="desc">></p-editor>
+          </div>
+          <p-message severity="error" text="Opis jest wymagany" *ngIf="!addProductForm.controls['desc'].valid"></p-message>
+        </div>
+
+        <div class="field col-12">
+          <label for="quantityId">Dostępna ilość</label>
+          <div id="quantityId" class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input type="number" [(ngModel)]="model.CurrentProduct.QuantityInStock" pInputText placeholder="liczba *" formControlName="quantInStock">
+          </div>
+          <p-message severity="error" text="Ilość dostępnych produktów jest wymagana" *ngIf="!addProductForm.controls['quantInStock'].valid"></p-message>
+        </div>
+      </div>
+
+      <!-- <p-button type="button" label="Dodaj nowy atrybut" icon="pi pi-check" (click)="addAttribute()" iconPos="left"></p-button> -->
+      <!-- [disabled]="addProductForm.invalid" to nie działa dlaczego ? -->
+      <p-button type="submit" label="Zapisz" icon="pi pi-check" iconPos="left"></p-button>
+
+    </form>
+  </p-card>

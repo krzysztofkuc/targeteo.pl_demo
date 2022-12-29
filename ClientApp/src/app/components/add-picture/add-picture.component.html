@@ -1,0 +1,22 @@
+<div style="padding: 20px 20px 20px 20px;">
+    <p-card>
+        <input
+            style="display: none"
+            type="file" multiple (change)="onFileChanged($event, fileInput.files)"
+            #fileInput>
+
+            <button *ngIf="showIcon" (click)="fileInput.click()" style="cursor: pointer">
+                <i  class="fa fa-5x fa-image"></i>
+                <img *ngIf="url" id="myimage" [src]="url" style="max-height: 150px; max-width: 150px; cursor: pointer;"/>
+            </button>
+
+            <button *ngIf="!showIcon" (click)="fileInput.click()" style="cursor: pointer">
+                <i *ngIf="showIcon" class="fa fa-5x fa-image"></i>
+                <img *ngIf="url" id="myimage" [src]="url" style="max-height: 150px; max-width: 150px; cursor: pointer;"/>
+            </button>
+
+        <div>
+            <p-button label="Clear" icon="pi pi-check" (click)="clearPicture()" iconPos="left"></p-button>
+        </div>
+    </p-card>
+</div>

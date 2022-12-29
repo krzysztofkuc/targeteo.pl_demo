@@ -1,0 +1,144 @@
+<app-product-details-skeleton *ngIf="isLoading"></app-product-details-skeleton>
+
+<div *ngIf="product" [ngClass]="{'mt-6': isMobilePhone}">
+		<div style="z-index: 0;">
+			<div class="grid" style="padding: 10px; margin-top: 0px !important;">
+				<div class="xl:col-6 lg:col-6 sm:col-12 md:col-12 col-12 pt-0">
+
+					<ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="width: 100%;" class="backgroundSection shadow-2"></ngx-gallery>
+				</div>
+				<div class="xl:col-6 lg:col-6 sm:col-12 md:col-12 col-12 backgroundSection mb-2 p-4 shadow-2 ">
+
+					<div class="flex justify-content-end">
+						
+						<a class="userRatingHref" routerLink='#' (click)="sellerDetailsClick($event)">{{ product.User.UserName }}
+							<p-rating [(ngModel)]="avgUserEval" [cancel]="false" readonly="true" style="padding-left: 15px; display: inline-block;"></p-rating> 
+							<label style="padding-left: 5px;">({{numberOfUserEvaluation}})</label>
+						</a>
+					</div>
+
+					<div style="padding-top: 10px;">
+
+
+					<h3 class="product-title">{{product.Title}}</h3>
+
+					<div class="grid" *ngFor="let attr of product.Attributes" style="padding-right: 20px;">
+						<div class="col-6" style="font-weight: bold;">
+							{{attr.CategoryAttribute.Name}}:
+						</div>
+
+						<div class="col-6">
+							<span *ngIf="attr.CategoryAttribute.Name == 'Cena'">
+								<div class="discountStyle" style="padding: 5px;">
+
+									<span>
+										<del *ngIf="product.DiscountFromPrice">
+											<span>{{product.DiscountFromPrice | number: '1.2-2'}} zł</span>
+										</del>
+
+										<span class="h-1.8rem font-bold text-white" 
+										style="border-radius: 3px; padding: 2px; background-color: rgb(150, 150, 150); display: inline-block;">{{attr.Value | number: '1.2-2'}} zł</span>
+									</span>
+									
+								</div>
+							</span>
+							<span *ngIf="attr.CategoryAttribute.Name != 'Cena'">
+								{{attr.Value}}
+							</span>
+							<!-- <span *ngIf="attr.CategoryAttribute.Name == 'Cena'">
+								<span class="align-items-center justify-content-center w-3rem h-1.8rem font-bold text-white m-2" 
+										style="border-radius: 3px; padding: 2px; background-color: rgb(150, 150, 150); display: inline-block;">{{attr.Value}} zł</span>
+							</span> -->
+						</div>
+					</div>
+					
+					<!-- <div class="rating">
+						<div class="stars">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+						</div>
+						<span class="review-no">41 reviews</span>
+					</div> -->
+					<h4 class="product-title mt-4">Metody dostawy</h4>
+					<div class="sm:col-12 md:col-8 lg:col-8">
+						<span *ngIf="product.User.UserSupplyMethods">
+							<div *ngFor="let sm of product.User.UserSupplyMethods">
+
+								<div class="grid">
+									<div class="col-2">
+										<img [src]="'../assets/' + sm.SupplyMethod.LogoPath" style="max-height: 25px" />
+									</div>
+									<div class="col-2">
+										{{sm.SupplyMethod.Company}}
+									</div>
+									<div class="col-4">
+										{{sm.SupplyMethod.SpecificDeliveryMethod}}
+									</div>
+									<div class="col-2">
+										[{{sm.TimeInHours}} h]
+									</div>
+									<div class="col-2">
+										{{sm.PricePerUnit}} zł
+									</div>
+								</div>
+							</div>
+						</span>
+					</div>
+					<p class="product-description" [innerHtml]="product.Description"></p>
+					<span class="flex justify-content-end m-4">
+						<button pButton pRipple type="button" label="Kup" class="p-button-success" (click)="addItemToCart($event, product)"></button>
+					</span>
+					<!-- <p-button icon="pi pi-chevron-up" (click)="openPrev()"></p-button> -->
+					<!-- <h4>Cena: <span>{{product.Price}} zł</span></h4> -->
+					<!-- <p><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
+					<!-- <h5 class="sizes">sizes:rere5t4gt6o.w
+						<span class="size" data-toggle="tooltip" title="small">s</span>
+						<span class="size" data-toggle="tooltip" title="medium">m</span>
+						<span class="size" data-toggle="tooltip" title="large">l</span>
+						<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+					</h5>
+					<h5>colors:
+						<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+						<span class="color green"></span>
+						<span class="color blue"></span>
+					</h5> -->
+					</div>
+				</div>
+
+				<div  class="backgroundSection shadow-2" style="width: 100%;">
+					<div>
+						<app-ask-question-about-product [product]="product" [userIdTo]="product.User.Id"></app-ask-question-about-product>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- this is redundant with user opinions -->
+<p-card>
+	<h5 *ngIf="opinions?.length == 0">Brak opinii o produkcie</h5>
+
+	<h3 *ngIf="opinions?.length > 0">Opinie o produkcie</h3>
+	<p-table *ngIf="opinions?.length > 0" [value]="opinions" responsiveLayout="scroll" autoLayout="true" >
+		<ng-template pTemplate="header">
+			<tr>
+				<th></th>
+				<th>Ocena</th>
+				<th>Komentarz</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-opinionX>
+			<tr>
+				<td>
+					<p-image [src]="'assets\\upload\\' + opinionX.Picture?.Path" [alt]="opinionX.OrderDetail.Product.Title" height="50" [preview]="true"></p-image>
+				</td>
+				<!-- <td><img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + opinionX.Picture?.Path" [alt]="opinionX.OrderDetail.Product.Title" style="max-width: 100px;"/></td> -->
+				<td><p-rating [(ngModel)]="opinionX.Evaluation" [cancel]="false" readonly="true"></p-rating></td>
+				<td>{{ opinionX.Text }}</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</p-card>

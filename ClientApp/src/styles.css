@@ -1,0 +1,683 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~ngx-toastr/toastr.css';
+
+/* Remove border whe focuse */
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 767px) {
+
+  html { font-size: 14px; }
+
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+
+/* p-autocomplete */
+/* .p-inputgroup .p-inputtext, .p-fluid .p-inputgroup .p-inputtext, .p-inputgroup .p-inputwrapper, .p-inputgroup .p-inputwrapper>.p-component {
+  border-radius: 15px !important;
+} */
+
+.p-badge {
+  background: #0078d4;
+  color: #fff;
+  font-size: .6rem;
+  font-weight: 700;
+  min-width: 1.0rem;
+  height: 1.0rem;
+  line-height: 1.0rem;
+}
+
+#xx {
+  padding: 0.3rem 0.7rem !important;
+}
+
+/* p-autocomplete p-input border */
+.p-inputgroup-addon:first-child, .p-inputgroup button:first-child, .p-inputgroup input:first-child, .p-inputgroup>.p-inputwrapper:first-child>.p-component, .p-inputgroup>.p-inputwrapper:first-child>.p-component>.p-inputtext {
+  border-end-start-radius: 5px !important;
+  border-start-start-radius: 5px !important;
+}
+
+.p-inputgroup-addon:last-child, .p-inputgroup button:last-child, .p-inputgroup input:last-child, .p-inputgroup>.p-inputwrapper:last-child>.p-component, .p-inputgroup>.p-inputwrapper:last-child>.p-component>.p-inputtext {
+  /* border-radius: 13px !important; */
+  border-start-end-radius: 5px !important;
+  border-end-end-radius: 5px !important;
+}
+
+.p-button {
+  border-radius: 5px;
+}
+
+.p-inline-message{
+  border-start-end-radius: 10px !important;
+  border-end-end-radius: 10px !important;
+}
+
+
+:host ::ng-deep .searchAutocomplete {
+  width: 100%;
+}
+
+:host ::ng-deep .centeredMenuBar.ui-menubar {
+  text-align: right !important;
+}
+:host ::ng-deep .ui-menubar .ui-menubar-custom
+{
+  text-align: center !important;
+  min-width: 100%;
+  
+}
+
+.p-inputgroup.searchWide{
+
+  display: inline-flex !important;
+  width: auto !important;
+}
+
+body {
+  background-color: ghostwhite;
+}
+
+.seMenuBar {
+  position: fixed;
+  top:0px;
+  left:0px;
+  right:0px;
+  z-index: 100;
+  background-color: #F3F3FA;
+  border-radius: 4px;
+  /* padding-top: 8px; */
+
+  -webkit-box-shadow:0px 1px 1px #D2D3D4;
+ -moz-box-shadow:0px 1px 1px #D2D3D4;
+ box-shadow:0px 1px 1px #D2D3D4;
+}
+
+/* //gallery background for transapretn photos */
+.ngx-gallery-preview-img{
+  background-color: ghostwhite;
+
+}
+
+/* menu sidebar */
+a.menuItem:link {
+  text-decoration: none;
+  margin-left: 5px;
+  color: #495057;
+}
+
+a.menuItem:visited {
+  color: #495057;
+}
+
+.p-treenode-icon{
+  display: none;
+}
+
+.p-tree {
+border: none;
+padding: 0;
+}
+
+.p-sidebar-header {
+  display: block !important;
+}
+
+.p-sidebar-left {
+  overflow: scroll;
+}
+
+/* breadcrumbs */
+.p-breadcrumb ul li .p-menuitem-link .p-menuitem-icon {
+  color: #6c757d;
+  margin-right: 10px;
+}
+
+.p-breadcrumb {
+  padding: 0.3rem !important;
+  border-right: 0 !important;
+}
+
+.p-menubar {
+  border: none;
+  padding: 0;
+}
+
+/* footer paralaxe */
+
+main {
+  position: relative;
+  z-index: 2;
+  /* background: linear-gradient( rgba(248, 248, 255, 0.7), rgba(248, 248, 255, 0.95) ), url(/assets/siteBackground.jpg);background-repeat: no-repeat;  background-position: center; background-size: 100% 100%; */
+}
+
+footer {
+  position: absolute;
+  /* bottom: 0; */
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+  
+  background: #DFE0E0;
+}
+
+body {
+  margin: 0 !important;
+  font-family: "Lato";
+}
+
+/* spinner */
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+      stroke: #d62d20;
+  }
+  40% {
+      stroke: #0057e7;
+  }
+  66% {
+      stroke: #008744;
+  }
+  80%,
+  90% {
+      stroke: #ffa700;
+  }
+}
+
+:host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+  animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
+}
+
+/* autocomplete */
+.p-inputgroup .p-inputtext, .p-fluid .p-inputgroup .p-inputtext, .p-inputgroup .p-inputwrapper, .p-inputgroup .p-inputwrapper>.p-component {
+  flex: 1 1 auto;
+   width: 100%;
+}
+
+p-progressSpinner {
+  position: fixed;
+  z-index: 999;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+} 
+
+#overlayProgressSpinner {
+  position: fixed; /* Sit on top of the page content */
+  
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.p-inputtext.ng-invalid {
+  border-color: red;
+}
+
+.p-inputtext.ng-valid {
+  border-color: green;
+}
+
+.p-inputtext {
+  border-color: #605e5c9c;
+}
+
+.p-dataview .p-dataview-header {
+  background: var(--surface-section);
+}
+
+.p-dataview .p-dataview-content {
+  background: var(--surface-section) !important;
+}
+
+.p-paginator {
+  background: var(--surface-section);
+}
+
+
+/* footer */
+.mainFooter {
+  margin: 20px;
+  padding: 20px;
+}
+
+@media screen and (max-width : 1204px)
+{
+  .mainFooter
+  {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width : 800px)
+{
+  .mainFooter
+  {
+    margin: 20px;
+  }
+}
+
+
+:root {
+   --mainColor: #2E4C6D;
+  --secondColor: #84bfff;
+  --fontColor: #6c757d;
+  --surface-ground: #1e90ff;
+  --surface-section: #ffffff;
+}
+
+a.animatedLink {
+  background:
+     linear-gradient(
+       to bottom, var(--mainColor) 0%,
+       var(--mainColor) 100%
+     );
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 4px 4px;
+  color: #000;
+  text-decoration: none;
+  transition: background-size .2s;
+}
+
+a.animatedLink:hover {
+  background-size: 4px 50px;
+} 
+
+a.animatedLink:active {
+  background-color: #d62d20;
+  background-size: 4px 50px;
+}
+
+
+.aNonDecorative{
+  text-decoration: none !important;
+  color: var(--text-color) !important;
+}
+
+.p-badge {
+  background: var(--mainColor);
+}
+
+.p-button {
+  background: var(--mainColor);
+  border: 1px solid var(--mainColor);
+}
+
+.p-button.p-button-text {
+  color: var("--mainColor");
+}
+
+.p-button:enabled:hover {
+  background: var(--mainColor);
+  border-color: var(--mainColor);
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button, .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
+  background-color: var(--mainColor);
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+  background: var(--secondColor);
+  filter: brightness(120%);
+}
+
+.p-highlightTreeNode {
+  background: var(--secondColor);
+  filter: brightness(120%);
+}
+
+/* footer */
+
+.site-footer
+{
+  background-color:#C1C1C7;
+  padding:0px 0 20px;
+  font-size:15px;
+  line-height:24px;
+  color:#737373;
+}
+.site-footer hr
+{
+  border-top-color:#bbb;
+  opacity:0.5
+}
+.site-footer hr.small
+{
+  margin:20px 0
+}
+.site-footer h6
+{
+  color:#fff;
+  font-size:16px;
+  text-transform:uppercase;
+  margin-top:5px;
+  letter-spacing:2px
+}
+.site-footer a
+{
+  color:#737373;
+}
+.site-footer a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links
+{
+  padding-left:0;
+  list-style:none
+}
+.footer-links li
+{
+  display:block
+}
+.footer-links a
+{
+  color:#737373
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links.inline li
+{
+  display:inline-block
+}
+.site-footer .social-icons
+{
+  text-align:right
+}
+.site-footer .social-icons a
+{
+  width:40px;
+  height:40px;
+  line-height:40px;
+  margin-left:6px;
+  margin-right:0;
+  border-radius:100%;
+  background-color:#33353d
+}
+.copyright-text
+{
+  margin:0
+}
+@media (max-width:991px)
+{
+  .site-footer [class^=col-]
+  {
+    margin-bottom:30px
+  }
+}
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
+}
+.social-icons
+{
+  padding-left:0;
+  margin-bottom:0;
+  list-style:none
+}
+.social-icons li
+{
+  display:inline-block;
+  margin-bottom:4px
+}
+.social-icons li.title
+{
+  margin-right:15px;
+  text-transform:uppercase;
+  color:#96a2b2;
+  font-weight:700;
+  font-size:13px
+}
+.social-icons a{
+  background-color:#eceeef;
+  color:#818a91;
+  font-size:16px;
+  display:inline-block;
+  line-height:44px;
+  width:44px;
+  height:44px;
+  text-align:center;
+  margin-right:8px;
+  border-radius:100%;
+  -webkit-transition:all .2s linear;
+  -o-transition:all .2s linear;
+  transition:all .2s linear
+}
+.social-icons a:active,.social-icons a:focus,.social-icons a:hover
+{
+  color:#fff;
+  background-color:#29aafe
+}
+.social-icons.size-sm a
+{
+  line-height:34px;
+  height:34px;
+  width:34px;
+  font-size:14px
+}
+.social-icons a.facebook:hover
+{
+  background-color:#3b5998
+}
+.social-icons a.twitter:hover
+{
+  background-color:#00aced
+}
+.social-icons a.linkedin:hover
+{
+  background-color:#007bb6
+}
+.social-icons a.dribbble:hover
+{
+  background-color:#ea4c89
+}
+@media (max-width:767px)
+{
+  .social-icons li.title
+  {
+    display:block;
+    margin-right:0;
+    font-weight:600
+  }
+}
+
+.p-tabmenuitem {
+  font-size: larger;
+}
+
+.p-autocomplete-input.p-inputtext.p-component {
+
+  width: 100%;
+  max-width: 700px;
+}
+
+p-autocomplete {
+  width: 100%;
+}
+
+p-autocomplete span {
+  width: 90%;
+}
+/* 
+@media only screen and (hover: none) and (pointer: coarse){
+
+
+} */
+
+  .p-dataview .p-dataview-content {
+    /* background: ghostwhite ; */
+    /* background-color: transparent; */
+    background: transparent;
+  }
+
+  .p-card {
+    background: ghostwhite !important;
+  }
+
+  .grid {
+    margin-right: 0;
+  }
+
+  #dialogShoppingCart .p-dialog .p-dialog-footer{
+    padding:0 0.5rem 1.5rem !important
+  }
+
+  /* priceTag */
+
+  .card-price {
+    display: inline-block;
+    
+    width: auto;
+    height: 30px;
+    
+    background-color: #6ab070;
+    -webkit-border-radius: 3px 4px 4px 3px;
+    -moz-border-radius: 3px 4px 4px 3px;
+    border-radius: 3px 4px 4px 3px;
+    
+    border-left: 1px solid #6ab070;
+  
+    /* This makes room for the triangle */
+    margin-left: 19px;
+    
+    position: relative;
+    
+    color: white;
+    /* font-weight: 300; */
+    font-size: 18px;
+    line-height: 30px;
+  
+    padding: 0 10px 0 10px;
+  }
+
+  .card-price-skeleton {
+    display: inline-block;
+    
+    width: auto;
+    height: 30px;
+  
+    /* This makes room for the triangle */
+    margin-left: 19px;
+    
+    position: relative;
+    
+    color: white;
+    /* font-weight: 300; */
+    font-size: 18px;
+    line-height: 30px;
+  
+    padding: 0 10px 0 10px;
+  }
+  
+  /* Makes the triangle */
+  .card-price:before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: -15px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #6ab070;
+  }
+  
+  /* Makes the circle */
+  .card-price:after {
+    content: "";
+    background-color: white;
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    display: block;
+    position: absolute;
+    left: -4px;
+    top: 14px;
+  }
+
+  .skeletonMenuLarge{
+    width: 15rem;
+    height: 4rem;
+    border-radius: 16px;
+  }
+
+  .desktopMenuBar {
+    background: linear-gradient(to top,rgb(255 255 255),rgb(232 232 232) 100%);
+    /* background: linear-gradient(to left, rgba(255,255,255,0), rgb(232 232 232)); */
+  }
+
+  .userRatingHref {
+    color: var(--secondColor);
+    text-decoration:none;
+  }
+
+  :host ::ng-deep .shadow-2 {
+    box-shadow: 0 4px 50px #00000008,0 0 2px #0000000f,0 2px 6px #0000001f !important;
+  }
+
+  .mainFilters{
+    background-color: var(--surface-section);
+  }
+
+  .p-carousel-container{
+    border-radius: 1px;
+    background: var(--surface-section);
+    box-shadow: 0 4px 50px #00000008,0 0 2px #0000000f,0 2px 6px #0000001f !important;
+  }
+  
+  .p-carousel-indicators.p-reset.ng-star-inserted {
+    display: none;
+  }
+
+  .backgroundSection {
+    background: var(--surface-section);
+  }
+
+  .p-rating .p-rating-icon.pi-star-fill {
+    color: #fdcc0d;
+}
+
+.p-rating .p-rating-icon {
+  color: #32313030;
+}

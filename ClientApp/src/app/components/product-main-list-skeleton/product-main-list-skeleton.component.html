@@ -1,0 +1,181 @@
+<div *ngIf="isLoadingProducts" class="custom-skeleton p-p-4">
+    <div class="container-fluid" >
+        <div class="grid">
+            <div class="sm:col-3 hidden-xs" style="background: white">
+                <div style="margin-bottom: 35px;">
+                    <p-divider> </p-divider>
+                    <h4><p-skeleton width="7rem" height="2rem"></p-skeleton></h4>
+                    <div class="p-formgroup-inline">
+                        <div class="grid">
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p-divider> </p-divider>
+                    <h4><p-skeleton width="7rem" height="2rem"></p-skeleton></h4>
+                    <div class="p-formgroup-inline">
+                        <div class="grid">
+                            <div class="col">
+
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p-divider> </p-divider>
+                    <h4><p-skeleton width="7rem" height="2rem"></p-skeleton></h4>
+                    <div class="p-formgroup-inline">
+                        <div class="grid">
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p-divider> </p-divider>
+                    <h4><p-skeleton width="7rem" height="2rem"></p-skeleton></h4>
+                    <div class="p-formgroup-inline">
+                        <div class="grid">
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p-divider> </p-divider>
+                    <h4><p-skeleton width="7rem" height="2rem"></p-skeleton></h4>
+                    <div class="p-formgroup-inline">
+                        <div class="grid">
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                            <div class="col">
+                                <p-skeleton width="8rem" height="2rem"></p-skeleton>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p-skeleton width="100%" height="2rem"></p-skeleton>
+                </div>
+            </div>
+        
+        <!-- router -->
+            <div class="col-12 sm:col-9">
+
+                <div style="width: 100%;" class=" shadow-2">
+                    <p-dataView class="shadow-2" #dv [value]="dummyProducts" [paginator]="true" [rows]="3" filterBy="name"
+                        [sortField]="sortField" [sortOrder]="sortOrder" [layout]="productsLayout" (onChangeLayout)="layoutOptionCLicked($event)">
+                        <ng-template pTemplate="header">
+                            <div class="grid">
+                                <div class="col">
+                                    <button pButton pRipple type="button" label="Filtry" (click)="showFilters()" class="p-button-raised p-button-secondary p-button-text hidden-sm hidden-md hidden-lg"></button>
+                                </div>
+                                <div class="col">
+                                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Wybierz sortowanie" (onChange)="onSortChange($event)"></p-dropdown>
+                                </div>
+                                <div class="col">
+                                    <p-dataViewLayoutOptions class="hidden-xs"></p-dataViewLayoutOptions>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template let-product pTemplate="listItem"style="height: 100%;">
+                        </ng-template>
+
+                        <ng-template let-product pTemplate="gridItem">
+
+                            <div class="product-grid-item"  style="cursor: pointer; display: inline-block; vertical-align: top;" [ngStyle]="isMobilePhone ? {'width': '45%', 'height': '18rem'} : {'max-width': '290px', 'min-width': '19rem'}">
+                                    <div style="height: 100%; position: relative;">
+                                        <!-- <div class="product-grid-item-top">
+                                        </div> -->
+
+                                            <div style="max-height: 230px;" class="flex justify-content-center flex-wrap align-items-end">
+                                                <p-skeleton *ngIf="!isMobilePhone" width="18rem" height="13rem"></p-skeleton>
+                                                <p-skeleton *ngIf="isMobilePhone" width="10rem" height="7rem"></p-skeleton>
+                                                <!-- discount -->
+                                                <!-- <img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + product.Pictures[0]?.Path" [alt]="product.Title" style="width: auto; max-height: 160px;" class="flex align-items-center justify-content-center"/> -->
+                                                <!-- <div *ngIf="product.DiscountFromPrice" class="promotionLabel">
+                                                    - {{(product.DiscountFromPrice - product.Price) / product.DiscountFromPrice * 100 | number: '1.0-0'}} %
+                                                </div> -->
+                                            </div>
+                                            
+                                            <div class="relative" style="display: block; height: 6.5rem;">
+
+                                                <div class="grid absolute bottom-0 ml-0 mr-0" style="width: 100%">
+                                                    <div class="col-12" style="padding-top: .1rem; padding-bottom: 0; width: 100%;">
+                                                        <div class="product-name" style="font-weight: 500!important; float: left;">
+                                                            <p-skeleton width="9rem" styleClass="mb-2"></p-skeleton>
+                                                        </div>
+        
+                                                        <div class="discountStyle" style="float: right;">
+                                                        
+                                                            <div style="text-align: center;">
+        
+                                                                <!-- <del *ngIf="product.DiscountFromPrice">
+                                                                    <span style="border-radius: 3px; padding: 2px; background-color: rgb(19, 19, 19);">{{product.DiscountFromPrice | number: '1.2-2'}} zł</span>
+                                                                </del> -->
+        
+                                                                <span class="card-price-skeleton align-items-center justify-content-center font-bold text-white" 
+                                                                style="border-radius: 3px; padding-bottom: 1px; margin-left: 20px !important;">
+                                                                    <p-skeleton width="4rem" styleClass="mb-2"></p-skeleton>
+                                                                </span>
+                                                            </div>
+                                                            
+                                                        </div>
+        
+                                                        <!-- <div *ngIf="isAdmin">
+                                                            <button pButton pRipple type="button" label="Edit" (click)="editProduct(product)" class="p-button-outlined p-button-secondary"></button>
+                                                            <button pButton pRipple type="button" label="Delete" (click)="deleteProduct(product)" class="p-button-outlined p-button-secondary"></button>
+                                                        </div> -->
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                    </div>
+                                </div>
+
+                        </ng-template>
+                </p-dataView>
+
+                <div *ngFor="let number of " style="display: inline-block; margin-top: 10px;">
+                    <div class="col-12"style="height: 100%;">
+                        <div class="product-grid-item" (click)="gotToProductDetails(product)" style="cursor: pointer; max-width: 290px; display: inline-block;">
+                            <div class="product-grid-item-top">
+                            </div>
+                            <div class="product-grid-item-content">
+                                <p-skeleton width="19rem" height="13rem"></p-skeleton>
+                            </div>
+                            <div class="product-grid-item-bottom">
+
+                                <div class="grid" style="margin-top: 20px;">
+                                    <div class="col-12" style="padding-top: .1rem; padding-bottom: 0 !important; text-align: center;">
+                                        <p-skeleton width="9rem" styleClass="mb-2"></p-skeleton>
+                                    </div>
+                                    <div class="col-12" style="padding-top: .1rem !important; text-align: center;">
+                                        <p-skeleton width="4rem" styleClass="mb-2"></p-skeleton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

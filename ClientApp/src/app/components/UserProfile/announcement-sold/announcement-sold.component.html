@@ -1,0 +1,28 @@
+<p-table *ngIf="announcements" [value]="announcements" responsiveLayout="scroll" autoLayout="true" >
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>Produkt</th>
+            <th>Kategoria</th>
+            <th>Cena</th>
+            <th>Status</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-orderDetail>
+        <tr style="cursor: pointer;" (click)="redirectToOrderSummary(orderDetail)">
+            <td><img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + orderDetail.Product.Pictures[0]?.Path" [alt]="orderDetail.Product.Title" style="max-width: 100px;"/></td>
+            <td>{{orderDetail.Product.Title}}</td>
+            <td>{{orderDetail.Product.Category.Name}}</td>
+            <td>{{orderDetail.Product.Price | number: '1.2-2'}} zł</td>
+            <td>
+                {{orderDetail.OneUserOrder.Status}}
+                <!-- <div *ngIf="product.DateTo <= timeNow"><small>zakończono: {{product.DateTo | date:'short'}}</small></div>
+                <div *ngIf="product.DateTo >= timeNow"><small>aktywne do: {{product.DateTo | date:'short'}}</small></div> -->
+                <!-- <button   pButton *ngIf="product.DateTo >= timeNow" type="button" icon="pi pi-times" label="Zakończ" class="p-button-sm p-button-text" (click)="endAnnouncementClick($event, product)"></button>
+                <button pButton *ngIf="product.DateTo <= timeNow" type="button" icon="pi pi-check" label="Aktywuj" class="p-button-sm p-button-text" (click)="activateAnnouncementClick($event, product)"></button>
+                <button pButton *ngIf="product.DateTo >= timeNow" type="button" icon="pi pi-check" label="+30 dni" class="p-button-sm p-button-text" (click)="addAnnouncementActivityDaysClick($event, product)"></button>
+                <button pButton pRipple type="button" label="Edycja" (click)="editProduct(product)" class="p-button-outlined p-button-secondary"></button> -->
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

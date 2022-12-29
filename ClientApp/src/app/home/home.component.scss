@@ -1,0 +1,132 @@
+p-carousel {
+  width: 100%;
+}
+
+.product-item {
+    .product-item-content {
+        // border: 1px solid var(--surface-d);
+        border-radius: 3px;
+        margin: .3rem;
+        text-align: center;
+        padding: 2rem 0;
+        width: 100%;
+    }
+  
+    .product-image {
+        max-height: 150px;
+        //box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+
+    a{
+        text-decoration: none;
+        color: var(--text-color);
+    }
+  }
+
+  // :host ::ng-deep .p-breadcrumb {
+  //   font-size: 0.1rem !important;
+  // }
+
+@media screen and (max-width : 800px)
+{
+  :host ::ng-deep .paddingTopBreadcrumbSmallScreen {
+        padding-top: 45px;
+        display: block;
+        margin: 0.1rem !important;;
+      }
+
+      :host ::ng-deep .p-breadcrumb ul li.p-breadcrumb-chevron {
+        margin: 0.1rem !important;
+        font-size: 0.8rem !important;
+      }
+
+      :host ::ng-deep .p-breadcrumb {
+        font-size: 0.8rem !important;
+        // margin: 0 .1rem;
+      }
+
+      .paddingTop {
+        padding-top: 50px;
+      }
+}
+
+.discountStyle {
+
+  del {
+    color: rgba(red, 0.8);
+    text-decoration: none;
+    position: relative;
+    font-size: 13px;
+    display: inline-block;
+    &:before {
+      content: " ";
+      display: inline-block;
+      width: 100%;
+      border-top: 2px solid rgba(rgb(255, 80, 80), 0.35);
+      height: 8px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: rotate(-15deg);
+    }
+  }
+  ins {
+    color: green;
+    font-size: 17px;
+    text-decoration: none;
+    padding-left: 0.3em;
+  //   padding: 1em 1em 1em .5em;
+  }
+}
+
+.promotionLabel{
+  position: absolute; 
+  top: 20px; left: 0px; 
+  background-color: brown; 
+  color: white; 
+  font-weight: 500!important;
+  padding: 5px;
+  padding-right: 10px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.priceTag {
+  position: absolute; 
+  top: 20px; left: 0px; 
+  font-weight: 500!important;
+  // padding: 5px;
+  padding-right: 10px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.p-menuitem-text {
+    font-size: 5rem;
+}
+
+:host ::ng-deep .tabMenu > p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  padding: 0px !important;
+}
+
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+  padding: 0px !important;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0px;
+}
+
+$color-menuTam: #0000000a;
+
+:host ::ng-deep .p-tabview-panels {
+  background: $color-menuTam;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link{
+  background: $color-menuTam;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}

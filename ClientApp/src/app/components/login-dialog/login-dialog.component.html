@@ -1,0 +1,56 @@
+<!-- <p-dialog position="top" [(visible)]="displayRegisterPopup">
+  <app-register-form-popup></app-register-form-popup>
+</p-dialog> -->
+
+<div class="surface-card p-2 shadow-2 border-round w-full" *ngIf="isSigned">
+  <div class="text-center mb-5">
+      <a routerLink='/'><img src="assets/motohunterLogo.png" height="70" ></a>
+      <div class="text-600 font-medium mb-3"  [routerLink]="'/user-profile'" style="cursor: pointer">{{login}}</div>
+    </div>
+    <div>
+      <!-- <p-button label="Wiadomości" badge="8" styleClass="mr-2"></p-button> -->
+      <p-button *ngIf="numberOfUnreadMessages > 0" [routerLink]="'/user-profile/messages'" pbutton 
+        type="button" label="Wiadomości" icon="pi pi-users" styleClass="p-button-warning" 
+        class="buttonMsgs" badge="{{numberOfUnreadMessages}}" badgeClass="p-badge-danger"
+        (click)="shoppingCartService.closeShoppingCartOverlay($event)"></p-button>
+
+      <button *ngIf="numberOfUnreadMessages == 0" [routerLink]="'/user-profile/messages'" (click)="shoppingCartService.closeShoppingCartOverlay($event)" pButton pRipple type="button" label="Wiadomości" class="p-button-secondary" style="width: 100%;"></button>
+    </div>
+      <div class="mt-1">
+        <button [routerLink]="'/user-profile/user-announcrments'" (click)="shoppingCartService.closeShoppingCartOverlay($event)" pButton pRipple type="button" label="Ogłoszenia" class="p-button-secondary" style="width: 100%;"></button>
+      </div>
+      <div class="mt-2" style="width: 100%;">
+        <p-button *ngIf="isSigned" type="button" label="Logout" icon="pi pi-user" iconPos="left" (click)="logout($event)" [style]="{'width': '100%'}"></p-button>
+      </div>
+      
+  </div>
+
+<div class="surface-card p-2 shadow-2 border-round w-full" *ngIf="!isSigned">
+  <div class="text-center mb-5">
+      <a routerLink='/'><img src="assets/motohunterLogo.png" height="40" ></a>
+      
+      <div class="text-600 font-medium line-height-3">Nie masz jeszcze konta?</div>
+      <a routerLink="/register" *ngIf="!isSigned" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Utwórz je!</a>
+  </div>
+
+  <div *ngIf="!isSigned" (keydown.enter)="onTryLogin()">
+      <label for="email1" class="block text-900 font-medium mb-2">Email</label>
+      <input id="email1" type="text" [(ngModel)]="loginModel.Email" pInputText class="w-full mb-3">
+
+      <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+      <input id="password1" type="password" [(ngModel)]="loginModel.Password" pInputText class="w-full mb-3">
+
+      <div class="flex align-items-center justify-content-between mb-6">
+          <div class="flex align-items-center">
+              <p-checkbox id="rememberme" [binary]="true" styleClass="mr-2"></p-checkbox>
+              <label for="rememberme">Zapamiętaj mnie</label>
+          </div>
+          <a (click)="resetPassword()" class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Zapomniałeś hasła?</a>
+      </div>
+
+      <!-- <button pButton pRipple label="Zaloguj" icon="pi pi-user" class="w-full"></button> -->
+  </div>
+
+  <p-button *ngIf="isSigned" type="button" label="Logout" icon="pi pi-user" iconPos="left" (click)="logout($event)"></p-button>
+  <p-button *ngIf="!isSigned" type="button" (click)="onTryLogin()" label="Login" icon="pi pi-user" iconPos="left" [style]="{'align-items': 'stretch'}"></p-button>
+</div>

@@ -1,0 +1,19 @@
+
+<div *ngIf="isSiteLoaded < 3"  style="display: flex; justify-content:center; align-items: center; height: 80vh;">
+    <img src="assets/Triple intersection.gif" height="100" width="100">
+</div>
+
+<h4 class="pt-5 sm:pt-5 md:pt-5 lg:pt-0">Twoje ogłoszenia</h4>
+
+
+<p-tabView>
+    <p-tabPanel header="Kupione">
+        <app-announcement-bought (isSiteLoaded) = "siteBoughtLoaded($event)"></app-announcement-bought>
+    </p-tabPanel>
+    <p-tabPanel header="Sprzedane">
+        <app-announcement-sold (isSiteLoaded) = "siteSoldLoaded($event)"></app-announcement-sold>
+    </p-tabPanel>
+    <p-tabPanel header="W trakcie sprzedaży">
+        <app-announcement-active (isSiteLoaded) = "siteActiveLoaded($event)"></app-announcement-active>
+    </p-tabPanel>
+</p-tabView>

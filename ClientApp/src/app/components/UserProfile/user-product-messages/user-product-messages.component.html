@@ -1,0 +1,28 @@
+<div *ngIf="!isSiteLoaded"  style="display: flex; justify-content:center; align-items: center; height: 80vh;">
+    <img src="assets/Triple intersection.gif" height="100" width="100">
+</div>
+
+
+<p>Wiadomośći produktu</p>
+
+<div *ngFor="let msg of model?.Comments">
+    <div class="container" *ngIf="msg.UserFrom.Email == model.UserFrom">
+        <!-- <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;"> -->
+        <small>{{msg.UserFrom.Email}}</small> 
+        <p>{{msg.Content}}</p>
+        <span class="time-right">{{msg.Date | date:'short'}}</span>
+    </div>
+
+    <div class="container darker" *ngIf="msg.UserFrom.Email != model.UserFrom">
+        <!-- <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;"> -->
+        <small>{{msg.UserFrom.Email}}</small> 
+        <p>{{msg.Content}}</p>
+        <span class="time-left">{{msg.Date | date:'short'}}</span>
+      </div>
+</div>
+
+<div style="width: 100%;">
+    <div>
+        <app-ask-question-about-product [product]="model?.Comments[0].Product" [userIdTo]="userIdToForAnswear" [conversationId]="model?.Comments[0].ConversationId" (commentAddedEvent)="commentAdded($event)"></app-ask-question-about-product>
+    </div>
+</div>

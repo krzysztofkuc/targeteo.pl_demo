@@ -1,0 +1,114 @@
+<!-- only skeleton need to be in component -->
+<!-- <div *ngIf="isLoadingProducts" class="custom-skeleton p-p-4"> -->
+
+<app-product-main-list-skeleton [isLoadingProducts]="isLoadingProducts" [productsLayout]="productsLayout"></app-product-main-list-skeleton>
+
+<div *ngIf="!isLoadingProducts">
+      <div class="container-fluid">
+
+        <div class="grid m-2">
+            <div class="sm:col-3 shadow-2 hidden-xs mainFilters">
+              
+                  <app-main-filters></app-main-filters>
+            </div>
+        
+            <!-- router -->
+            <!-- 74% because sm:col9 has 75% but its is too much -->
+            <div class="col-12 sm:col-9 mr-0" style="padding-right: 0 !important; padding-left: 0.6rem !important; padding-top: 0;">
+
+                <div style="width: 100%;" class=" shadow-2">
+                    <p-dataView class="shadow-2" #dv [value]="productService.filteredProducts$ | async" [paginator]="true" [rows]="3" filterBy="name"
+                        [sortField]="sortField" [sortOrder]="sortOrder" [layout]="productsLayout" (onChangeLayout)="layoutOptionCLicked($event)">
+                        <ng-template pTemplate="header">
+                            <div class="grid">
+                                <div class="col">
+                                    <button pButton pRipple type="button" label="Filtry" (click)="showFilters()" class="p-button-raised p-button-secondary p-button-text hidden-sm hidden-md hidden-lg"></button>
+                                </div>
+                                <div class="col">
+                                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Wybierz sortowanie" (onChange)="onSortChange($event)"></p-dropdown>
+                                </div>
+                                <div class="col">
+                                    <p-dataViewLayoutOptions class="hidden-xs"></p-dataViewLayoutOptions>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-product pTemplate="listItem"style="height: 100%;">
+                            <div class="col-12"style="height: 100%;">
+                                <div class="product-list-item" (click)="gotToProductDetails(product)" style="cursor: pointer;" style="height: 100%;">
+                                    <img onError="this.src='assets\\imgEmpty.png'" src="this.src='assets\\imgEmpty.png'" [alt]="product.Title" style="max-height: 300px; max-width: 300px;"/>
+                                    <div class="product-list-detail">
+                                        <div class="product-name">{{product.Title}}</div>
+                                        <!--  this is not filled -> product.Category.Name -->
+                                        <!-- <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{product.Category.Name}}</span> -->
+                                    </div>
+                                    <div class="product-list-action">
+                                        <span class="card-price product-price">{{product.Price | number: '1.2-2'}} zł</span>
+                                    </div> 
+                                </div>
+                                <div *ngIf="isAdmin">
+                                    <button pButton pRipple type="button" label="Edit" (click)="editProduct(product)" class="p-button-outlined p-button-secondary"></button>
+                                    <button pButton pRipple type="button" label="Delete" (click)="deleteProduct(product)" class="p-button-outlined p-button-secondary"></button>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template let-product pTemplate="gridItem">
+
+                                <div class="product-grid-item"  style="cursor: pointer; display: inline-block; vertical-align: top;" [ngStyle]="isMobilePhone ? {'width': '45%', 'height': '18rem'} : {'max-width': '290px', 'min-width': '19rem'}">
+                                    <div (click)="gotToProductDetails(product)" style="position: relative;">
+                                        <!-- <div class="product-grid-item-top">
+                                        </div> -->
+                                        
+                                            <div style="max-height: 16rem; " class="flex justify-content-center flex-wrap align-items-end">
+                                                <img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + product.Pictures[0]?.Path" [alt]="product.Title" style="max-width: 16rem; max-height: 16rem;" class="flex align-items-center justify-content-center"/>
+                                                <div *ngIf="product.DiscountFromPrice" class="promotionLabel">
+                                                    - {{(product.DiscountFromPrice - product.Price) / product.DiscountFromPrice * 100 | number: '1.0-0'}} %
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="relative" style="display: block; height: 6.5rem;">
+
+                                                <div class="grid absolute bottom-0 ml-0 mr-0" style="width: 100%">
+                                                    <div class="col-12" style="padding-top: .1rem; padding-bottom: 0; width: 100%;">
+                                                        <div class="product-name" style="font-weight: 500!important; float: left;">{{product.Title}}</div>
+        
+                                                        <div class="discountStyle" style="float: right;">
+                                                        
+                                                            <div style="text-align: center;">
+        
+                                                                <del *ngIf="product.DiscountFromPrice">
+                                                                    <span style="border-radius: 3px; padding: 2px; background-color: rgb(19, 19, 19);">{{product.DiscountFromPrice | number: '1.2-2'}} zł</span>
+                                                                </del>
+        
+                                                                <span class="card-price align-items-center justify-content-center font-bold text-white" [ngStyle]="isMobilePhone?{'font-size': '0.9rem'}: {'font-size': '1rem'}"
+                                                                style="border-radius: 3px; padding-bottom: 1px; margin-left: 20px !important;">{{product.Price | number: '1.2-2'}} zł</span>
+                                                            </div>
+                                                            
+                                                        </div>
+        
+                                                        <!-- <div *ngIf="isAdmin">
+                                                            <button pButton pRipple type="button" label="Edit" (click)="editProduct(product)" class="p-button-outlined p-button-secondary"></button>
+                                                            <button pButton pRipple type="button" label="Delete" (click)="deleteProduct(product)" class="p-button-outlined p-button-secondary"></button>
+                                                        </div> -->
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                    </div>
+                                </div>
+                                
+
+                        </ng-template>
+                </p-dataView>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+<p-dialog #filtersModalDialog header="Filtry" [(visible)]="displayFiltersModal" *ngIf="isMobilePhone" [dismissableMask]="true" [closeOnEscape]="true"
+[responsive]="true"
+[closable]="true">
+    <app-main-filters [hidden]="!displayFiltersModal" (onCloseEvent)="onCloseMainFilters(value)"></app-main-filters>
+</p-dialog>

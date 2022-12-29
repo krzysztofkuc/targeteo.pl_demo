@@ -1,0 +1,38 @@
+ <div style="display: flexbox;">
+  <div class="p-inputgroup" style="width: 100%;">
+      <span class="p-inputgroup-addon" (click)="searchProducts($event)"><i class="pi pi-search"></i></span>
+      <p-autoComplete [(ngModel)]="searchText" 
+                  [suggestions]="quickSearchResults" 
+                  (completeMethod)="onCityChange($event)" 
+                  (onSelect)="onSelect($event)" 
+                  (focusout)="onFocusOut()" 
+                  (keydown.enter)="onFocusOut()"
+                  placeholder="Szukaj"
+                  autofocus = "true"
+                  [style]="{'display': 'inline-block !important'}"
+                  #search>
+      </p-autoComplete>
+  </div>
+
+  <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
+      <input type="text" [(ngModel)]="searchInCity" pInputText (input)="onCityChange($event)">
+      <p-dropdown [options]="distances" [(ngModel)]="selectedCityDistance" (onChange)="searchDistanceChanged($event)" placeholder="Odległość"></p-dropdown>
+  </div>
+
+    <!-- <app-map style="height: 100px; width: 100px;" #mobileSearchModalMap [mapId]="'mobilemap'" [(selectedCiy)] = "selectedCityVm"></app-map> -->
+
+  <div style="width: 100%; height: 100%;">
+      <div style="height: 260px; width: 200px;">
+
+          <div class="map-container">
+            <div class="map-frame">
+              <div id="map"></div>
+            </div>
+          </div>
+
+          <!-- <app-map style="width: 100%; height: 100%;" #mobileSearchModalMap [mapId]="'mobilemap'" [(selectedCity)] = "selectedCityVm"></app-map> -->
+      </div>
+  </div>
+</div>
+

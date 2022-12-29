@@ -1,0 +1,21 @@
+
+     <i class="pi pi-shopping-cart p-text-secondary" pBadge
+        [ngClass] = " {'disabled': SumOfItems == 0 } "
+        value="{{ SumOfItems > 0 ? SumOfItems : '' }}"
+        (click)="SumOfItems != 0 &&  shoppingCartClikced($event)"
+        style ="cursor: pointer;"
+        [ngStyle]="{'font-size': fontSize + 'rem'}"
+        id="ccx"
+        #shoppingCartIcon>
+
+         <!-- <sup style="position: absolute; top: -10px; left: 8px;" ><span class="badge badge-pill badge-info">{{ SumOfItems > 0 ? SumOfItems : '' }}</span></sup> -->
+    </i>
+
+    <p-overlayPanel #op for="ccx" appendTo="body">
+      <ng-template pTemplate="header">
+        ddddddddddd
+      </ng-template>
+        <ng-template pTemplate="content">
+            <app-shopping-cart-dialog [parent]="op" ></app-shopping-cart-dialog>
+        </ng-template>
+    </p-overlayPanel>

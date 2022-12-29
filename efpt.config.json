@@ -1,0 +1,174 @@
+﻿{
+   "CodeGenerationMode": 1,
+   "ContextClassName": "ApplicationDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": "",
+   "OutputContextPath": "Model",
+   "OutputPath": "Model\/Entities",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "targeteo.pl",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[__MigrationHistory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AccountOperationStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Adress]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AnnouncementPayment]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AnnouncementStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserClaims]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserLogins]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AttributeValueList]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Cart]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Category]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CategoryAttributes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[City]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Comments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CompanyInformation]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Conversations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Discounts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiscountsProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OneUserOrder]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderDetail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderOpinion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderSummary]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Picture]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Product]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductAttribute]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Roles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SupplyMethods]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SupplyMethodType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserAccount]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserProfile]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserProfileSettings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserSupplyMethod]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[udf_Haversine]",
+         "ObjectType": 2,
+         "UseLegacyResultSetDiscovery": true
+      }
+   ],
+   "UiHint": "(LocalDb)\\MSSQLLocalDB.targeteo.pl",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

@@ -1,0 +1,14 @@
+<div *ngFor="let userModel of results">
+  <p-card>
+    <app-one-user-order [model]="userModel"></app-one-user-order>
+  </p-card>
+</div>
+
+<p-card header="Obsługiwane płatności" styleClass="p-card-shadow mb-2">
+  <img  class="flex align-items-center justify-content-center" src="../assets/banki_HP2820x150.png" style="width: 100%; max-width: 1000px;"/>
+</p-card>
+
+<div style="padding: 10px">
+  <p-button type="submit" label="Zamawiam i płacę" icon="pi pi-check" iconPos="left" (click)="submitOrder()" [hidden]="isOrdering"></p-button>
+  <p-progressBar [style]="{'height': '10px', 'width': '7rem'}" mode="indeterminate" [hidden]="!isOrdering"></p-progressBar>
+</div>

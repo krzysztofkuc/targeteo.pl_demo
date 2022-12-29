@@ -1,0 +1,24 @@
+<p-carousel [value]="[1,2,3,4,5,6]" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="15000" [responsiveOptions]="responsiveOptions">
+    <ng-template let-product pTemplate="item">
+        <div class="product-item-content">
+            <div class="product-item">
+                <div class="product-item-content">
+                    <div class="mb-3">
+                        <a>
+                            <p-skeleton width="90%" height="14rem" borderRadius="16px" class="mr-2"></p-skeleton>
+                            <p-skeleton width="1rem" width="60%" borderRadius="16px" class="mr-1"></p-skeleton>
+
+                            <!-- <div style="float: left;">{{product.Title}}</div>
+                            <div class="font-bold" style="float: right;">{{product.Price}} zł</div> -->
+                            <!-- <small class="carouselText">{{product.Title}} {{product.Price}} zł</small> -->
+                        </a>
+                    </div>
+                    <!-- <div>
+                        <h4 class="mb-1">{{product.Name}}</h4>
+                        <h6 class="p-mt-0 mb-3">{{product.Price}} zł</h6>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>

@@ -1,0 +1,33 @@
+:host ::ng-deep .p-inputnumber-input{
+
+    width: 100% !important;
+}
+
+.labelBold {
+    font-weight: bold;
+}
+
+.bottomSticky{
+    position: sticky;
+    bottom: 20px;
+}
+
+.listbox-filter{
+    width: 100%;
+    border: none;
+}
+
+.backgroundLighter {
+    background-color: brown !important;
+}
+
+::ng-deep .p-listbox {
+    background: none;
+    border: none;
+    padding-top: -10px;
+    padding-bottom: -10px;
+}
+
+::ng-deep .p-accordion .p-accordion-content {
+    padding: 0.4rem;
+}

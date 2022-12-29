@@ -1,0 +1,90 @@
+<div class="card">
+    <h5>Filter Row</h5>
+    <p>Filters are displayed inline within a separate row.</p>
+    <p-table #dt2 [value]="orders" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['OrderId','username','FirstName','LastName']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>OrderId</th>
+                <th>Username</th>
+                <th>OrderDate</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <th>
+                    <columnFilter type="text" field="OrderId"></columnFilter>
+                </th>
+                <th>
+                    <columnFilter type="text" field="Username"></columnFilter>
+                </th>
+                <th>
+                    <columnFilter type="text" field="OrderDate"></columnFilter>
+                </th>
+                <th>
+                    <columnFilter type="text" field="Status"></columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+            <tr>
+                <td>
+                    {{order.OrderId}}
+                </td>
+                <td>
+                    {{order.Username}}
+                </td>
+                <td>
+                    {{order.OrderDate}}
+                </td>
+                <td>
+                    <p-dropdown [(ngModel)]="order.OldStatus" [options]="status" optionLabel="label" optionValue="value" (onChange)="statusChanged(order, $event);"></p-dropdown>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No customers found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog id="confirmModal" header="Zmiana statusu" [(visible)]="displayModalChangeStatusConfirmation" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    <form #confirmForm="ngForm" (ngSubmit)="confirmChangeStatus()">
+
+        <p class="p-m-0">Na pewno chcesz zmienić status zamówienia ? Zostanie wysłany email do klienta.</p>
+
+            <div id="trackingNumber" class="p-inputgroup" *ngIf="changeStatusTo == 'sent'">
+                <label for="trackingNumber">nr. przewozowy</label>
+                <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                <input type="text" [(ngModel)]="trackingNo" pInputText placeholder="Nr przewozowy *" required name="trackingNoName" id="trackingNoName" #trackingNoName="ngModel">
+                
+                <div [hidden]="confirmForm.form.valid" class="alert alert-danger">Numer jest wymagany</div>
+                
+                <!-- <div *ngIf="trackingNo.errors?.required">
+                    Nr przewozowy jest wymagany
+                </div> -->
+                <!-- <p-message severity="error" text=" " *ngIf="!addCategoryForm.controls['categoryName'].valid"></p-message> -->
+            </div>
+    
+        
+            <button type="button" pButton icon="pi pi-times" label="Nie" (click)="rejectChangeStatus()"></button>
+            <!-- <button pButton pRipple type="submit" icon="pi pi-check" class="p-button-success" style="width: 100%;">Zapisz</button> -->
+            <button pButton type="submit" pButton icon="pi pi-check" label="Tak" [disabled]="!confirmForm.form.valid"></button>
+        
+
+    </form>
+</p-dialog>

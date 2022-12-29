@@ -1,0 +1,6 @@
+<form *ngIf="types" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+        <p><small>Wybierz rodzaj atrybutu</small></p>
+    </div>
+    <button pButton pRipple type="submit" icon="pi pi-check" class="p-button-success" style="width: 100%;">Zapisz</button>
+</form>

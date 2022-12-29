@@ -1,0 +1,20 @@
+<form [formGroup]= "form" (ngSubmit)="askQuestion()" style="width: 100%;" class="p-4">
+    <h3>Napisz wiadomość</h3>
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12">
+            <div class="p-inputgroup" style="width: 100%;">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <textarea pInputTextarea  (focus)="onFocus()" id="msg" type="text" [(ngModel)]="model.Content" formControlName="msg" name="firstName" aria-describedby="wiadomość" style="width: 100%;"></textarea>
+            </div>
+        </div>
+    </div>
+    <p-button type="submit" label="wyślij" icon="pi pi-check" iconPos="left" [hidden]="isSending">
+        <!-- <p-progressBar mode="indeterminate"></p-progressBar> -->
+    </p-button>
+    <p-progressBar [style]="{'height': '10px', 'width': '95px'}" mode="indeterminate" [hidden]="!isSending"></p-progressBar>
+</form>
+
+
+<p-dialog header="Title" [(visible)]="displayLoginDialog">
+    <app-login-dialog></app-login-dialog>
+</p-dialog>

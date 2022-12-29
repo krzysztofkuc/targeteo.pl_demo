@@ -1,0 +1,218 @@
+<div class="paddingTop" *ngIf="isMainPage">
+
+<!-- <app-shop-solutions-info></app-shop-solutions-info> -->
+
+<div class="grid grid-nogutter surface-section mt-2 mb-2 text-800 hidden-xs shadow-2 tabMenu">
+    <p-tabView styleClass="tabview-custom" effect="fade" effectDuration="normal" dynamic="true">
+        <p-tabPanel *ngFor="let menuItem of menuItems" style="padding: 0;" [hidden] = "!isSubMenuExpanded">
+            <ng-template pTemplate = "header">
+                <figure style="text-align: center" (click)="circleMenuClick(menuItem)">
+
+                    <!-- <img onError="this.src='assets\\imgEmpty.png'" [src]="'assets\\upload\\' + product.Pictures[0]?.Path"  -->
+                    <!-- <img onError="this.src='assets\\imgEmpty.png'" [src]="'F:\\Repository\\targeteo.pl\\ClientApp\\dist\\assets\\' + menuItem.ThumbnailFileName" [alt]="product.Title" style="max-width: 16rem; max-height: 16rem;" class="flex align-items-center justify-content-center"/> -->
+                    <p-avatar [image]="'assets\\upload\\' + menuItem.ThumbnailFileName" size="xlarge" shape="circle"></p-avatar>
+                    <figcaption>{{menuItem.label}}</figcaption>
+                </figure>
+            </ng-template>
+            <span *ngFor="let subItem of menuItem.items" style="display: inline-block" >
+                    <figure style="text-align: center" [hidden]="!isSubMenuExpanded">
+                        <p-avatar image="assets/istockphoto-1133980246-612x612.jpg" size="large" shape="circle"></p-avatar>
+                        <figcaption>{{subItem.label}}</figcaption>
+                    </figure>
+            </span>
+        </p-tabPanel>
+    </p-tabView>
+
+    <!-- nowe menu
+    <p-tabMenu [model]="menuItems">
+        <ng-template pTemplate="item" let-item let-i="index">
+
+                <figure style="text-align: center">
+                    <p-avatar image="assets/istockphoto-1133980246-612x612.jpg" size="xlarge" shape="circle"></p-avatar>
+                    <figcaption>{{menuItems[i].label}}</figcaption>
+                </figure>
+
+        </ng-template>
+    </p-tabMenu> -->
+
+    <!-- <p-tabView styleClass="tabview-custom">
+        <p-tabPanel *ngFor="let menuItem of menuItems" style="padding: 0;">
+            <ng-template pTemplate = "header">
+                <figure style="text-align: center">
+                    <p-avatar image="assets/istockphoto-1133980246-612x612.jpg" size="xlarge" shape="circle"></p-avatar>
+                    <figcaption>{{menuItem.label}}</figcaption>
+                </figure>
+            </ng-template>
+            <span *ngFor="let subItem of menuItem.items" style="display: inline-block">
+                    <figure style="text-align: center">
+                        <p-avatar image="assets/istockphoto-1133980246-612x612.jpg" size="large" shape="circle"></p-avatar>
+                        <figcaption>{{subItem.label}}</figcaption>
+                    </figure>
+            </span>
+        </p-tabPanel>
+    </p-tabView> -->
+
+</div>
+
+<div class="grid grid-nogutter surface-section text-800 hidden-xs shadow-2">
+    <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+        <section>
+            <span class="block text-6xl font-bold mb-1">-Ile kosztuje handel na TARGETEO ?</span>
+            <div class="text-5xl text-primary font-bold mb-3">-Nic. Jest za darmo</div>
+            <span class="block text-4xl font-bold mb-1">-To uczciwa cena</span>
+            <!-- <p class="mt-0 mb-4 text-700 line-height-3">To uczciwa cena.</p> -->
+            
+            <!-- <button pButton pRipple label="Learn More" type="button" class="mr-3 p-button-raised"></button>
+            <button pButton pRipple label="Live Demo" type="button" class="p-button-outlined"></button> -->
+        </section>
+    </div>
+    <div class="col-12 md:col-6 overflow-hidden">
+        <img src="assets/istockphoto-1133980246-612x612.jpg" alt="Image" class="md:ml-auto block md:h-full" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
+    </div>
+</div>
+
+<div style="width: 100%;" class="hidden-sm hidden-md hidden-lg">
+
+    <div class="card flex flex-wrap m-2 mt-0">
+      <!-- <div class="font-bold flex align-items-center justify-content-center"> -->
+            <div class="p-inputgroup" style="width: 100%;">
+              <!-- <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span> -->
+              <p-autoComplete [(ngModel)]="searchBarService.searchText" 
+                              [suggestions]="searchBarService.quickSearchResults" 
+                              field="Title"
+                              (completeMethod)="searchBarService.searchProducts($event)"
+                              [style]="{'width':'100%'}"
+                              [inputStyle]="{'width':'100%'}"
+                              placeholder="Szukaj"
+                              [ngModelOptions]="{standalone: true}">
+
+                                <ng-template let-product pTemplate="item">
+                                    <div>
+                                        <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /> -->
+                                        <div>{{product.Title}} <small>, kategoria {{product.Category.Name}}</small></div>
+                                    </div>
+                                </ng-template>
+              </p-autoComplete>
+            </div>
+          
+            <div class="grid" style="margin-top: 0; margin-left: 0; width: 100%">
+              <div class="col-7" style="padding-right: 0; padding-left: 0;">
+                <div class="p-inputgroup">
+                  <!-- <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span> -->
+                  <p-autoComplete [(ngModel)]="searchBarService.searchInCity" 
+                                  [suggestions]="searchBarService.citySearchResults" 
+                                  (completeMethod)="searchBarService.onCityFind($event)" 
+                                  (onSelect)="searchBarService.onCityChange($event)"
+                                  (keydown.enter)="searchBarService.onFocusOut($event)"
+                                  name="searcgInCity"
+                                  [style]="{'width':'100%'}"
+                                  [inputStyle]="{'width':'100%'}"
+                                  placeholder="cała Polska"
+                                  [ngModelOptions]="{standalone: true}">
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-5" style="padding-left: 0; padding-right: 0;">
+                <div class="p-inputgroup" style="width: 100% !important">
+                  <p-dropdown *ngIf="searchBarService.searchInCity" [options]="searchBarService.distances" [(ngModel)]="searchBarService.selectedCityDistance" (onChange)="searchBarService.searchDistanceChanged($event)" [style]="{'width':'100% !important', 'cursor':'pointer'}"></p-dropdown>
+                  <span class="p-inputgroup-addon" style="width: '100%  !Important'; cursor: 'pointer'" (click)="searchBarService.onFocusOut($event)"><i class="pi pi-search" style="height: 1.15rem"></i></span>
+                </div>
+              </div>
+          </div>
+        
+    </div>
+
+    <span *ngIf="isAdmin">
+      <p-button label="Dodaj kategorię" icon="pi pi-check" (click)="addcategory()" iconPos="left"></p-button>
+      <p-button label="Edytuj kategorię" icon="pi pi-check" (click)="editCategory()" iconPos="left"></p-button>
+      <p-button label="Usuń kategorię" icon="pi pi-check" (click)="deleteCategory()" iconPos="left" ></p-button>
+      <p-button type="button" label="Dodaj nowy atrybut" icon="pi pi-check" (click)="addAttribute()" iconPos="left"></p-button>
+    </span>
+    
+  </div>
+
+<!-- <div class="flex justify-content-center" *ngIf="isMainPage" style="max-height: 300px;">
+    <h1 style="font-weight: bold; color: chocolate;">Najnowsze produkty</h1>
+</div> -->
+
+<app-carousel-skeleton *ngIf="isMainPage && isLoadingCarousel"></app-carousel-skeleton>
+
+<div class="flex justify-content-center mt-2 mb-2">
+
+    <!-- ts causes error bu it is only way to set 100% (bug primeNg) style="width: 100%" -->
+    <p-carousel [style]="{'width': '100%', 'max-width': '100% !important', 'cursor':'pointer'}" *ngIf="isMainPage && !isLoadingLastAddedProducts" class="shadow-2" [value]="lastAddedProducts" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="15000" [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item">
+            
+                <div class="product-item">
+                    <div class="product-item-content">
+                        <div class="mb-3" style="position: relative;">
+                            <a [routerLink]="'/produkt/' + product.ProductId">
+                                <div>
+                                    <img onError="this.src='assets\\imgEmpty.png'" class="product-image" [src]="'assets\\upload\\' + product.Pictures[0]?.Path" alt="{{product.Name}}">
+                                </div>
+                                <div>{{product.Title}}</div>
+
+                                <div>
+                                    <del *ngIf="product.DiscountFromPrice" >
+                                        <span>{{product.DiscountFromPrice | number: '1.2-2'}} zł</span>
+                                    </del>
+                                    <span class="card-price">{{product.Price | number: '1.2-2'}} zł</span>
+                                    <!-- <div class="font-bold">{{product.Price | number: '1.2-2'}} zł</div> -->
+                                </div>
+                                <!-- <small class="carouselText">{{product.Title}} {{product.Price}} zł</small> -->
+                            </a>
+
+                            <div>
+                                <div *ngIf="product.DiscountFromPrice" class="promotionLabel">
+                                    - {{(product.DiscountFromPrice - product.Price) / product.DiscountFromPrice * 100 | number: '1.0-0'}} %
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div>
+                            <h4 class="mb-1">{{product.Name}}</h4>
+                            <h6 class="p-mt-0 mb-3">{{product.Price}} zł</h6>
+                        </div> -->
+                    </div>
+                </div>
+        </ng-template>
+    </p-carousel>
+
+<!-- <div class="flex justify-content-center" *ngIf="isMainPage">
+    <h1 style="font-weight: bold; color: chocolate;">Bestsellers</h1>
+</div>
+
+<p-carousel *ngIf="isMainPage && !isLoadingCarousel" [value]="bestSellers" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="15000" [responsiveOptions]="responsiveOptions">
+    <ng-template let-product pTemplate="item">
+        <div class="product-item-content">
+            <div class="product-item">
+                <div class="product-item-content">
+                    <div class="mb-3" style="position: relative;">
+                        <a [routerLink]="'/produkt/' + product.ProductId">
+                            <img onError="this.src='assets\\imgEmpty.png'" class="product-image" [src]="'assets\\upload\\' + product.Pictures[0]?.Path" alt="{{product.Name}}">
+
+                            <div style="float: left;">{{product.Title}}</div>
+
+                            <div style="float: right;">
+                                <del *ngIf="product.DiscountFromPrice" >
+                                    <span>{{product.DiscountFromPrice | number: '1.2-2'}} zł</span>
+                                </del>
+                                <span class="card-price">{{product.Price | number: '1.2-2'}} zł</span>
+                            </div>
+                        </a>
+
+                        <div>
+                            <div *ngIf="product.DiscountFromPrice" class="promotionLabel">
+                                - {{(product.DiscountFromPrice - product.Price) / product.DiscountFromPrice * 100 | number: '1.0-0'}} %
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel> -->
+</div>
+</div>
+<p-breadcrumb *ngIf="!isMainPage" [model]="breadcrumb.crumbsSynchro" [home]="breadcrumb.home" class="paddingTopBreadcrumbSmallScreen" [ngStyle]="{'font-size': isMobilePhone ? '0.1rem' : '1rem' }"></p-breadcrumb>
+<!-- <p-breadcrumb [model]="breadcrumb.crumbsSynchro" *ngIf="!isMainPage"  [style]="{border: 'none', backgroundColor: 'ghostwhite'}" class="paddingTopBreadcrumbSmallScreen"></p-breadcrumb> -->
+<app-product-list-main *ngIf="!isMainPage"></app-product-list-main>

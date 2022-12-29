@@ -1,0 +1,10 @@
+<p-messages *ngIf="validateForm().length > 0" severity="error" [escape]="false">
+    <ng-template pTemplate>
+        <h5>Uzupełnij pola:</h5>
+        <ul>
+            <li *ngFor="let field of validateForm()">
+                {{field}}
+            </li>
+        </ul>
+    </ng-template>
+</p-messages>

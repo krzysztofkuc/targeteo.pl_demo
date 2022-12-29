@@ -1,0 +1,48 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="" [routerLink]="['/']"><img src="assets/Logo.png" style="width: 200px;"></a>
+            
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/add-product']" style="color: green;" >Add product</a>
+          </li>
+          <li style="padding-left: 10px;">
+            <p-avatar icon="pi pi-user" (click)="loginOverlay.toggle($event)" styleClass="mr-2" 
+            style ="cursor: pointer" shape="circle"></p-avatar>
+            <!-- <button #loginDialogButton (click)="openLoginDialog()">Login</button> -->
+          </li>
+          <li style="padding-left: 10px;" class="d-none d-sm-block d-md-block d-lg-block">
+            
+              <!-- <app-shopping-cart-btn></app-shopping-cart-btn> -->
+          </li>
+
+          <li class="nav-item" class="d-none-block d-sm-none">
+              <h3>Kategorie</h3>
+              <p-panelMenu [model]="categories" [style]="{'width':'300px'}"></p-panelMenu>
+              <!-- <button (click)="addcategory()">Dodaj kategorię</button> -->
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<p-overlayPanel #loginOverlay>
+  <ng-template pTemplate>
+      <app-login-dialog></app-login-dialog>
+  </ng-template>
+</p-overlayPanel>

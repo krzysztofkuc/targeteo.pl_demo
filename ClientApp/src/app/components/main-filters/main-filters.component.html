@@ -1,0 +1,118 @@
+
+<div *ngIf="model" [formGroup]="formGroup" style="padding-bottom: 40px;" class="mainFilters">
+    <p-divider> </p-divider>
+    <!-- <div formArrayName ="attributes"> -->
+        <label *ngIf="model?.length == 0">Brak filtrów</label>
+        <div *ngFor= "let filter of model; let i='index'; let odd = odd; let even = even">
+            <!-- this hide should be change to disabled fitler instead to not render -->
+            <div [ngSwitch]="filter.ViewFilterType" *ngIf="!filter.Hide && 
+                            filter.AttributeType != attributeTypes.numberTo && 
+                            filter.AttributeType != attributeTypes.dateTo">
+                <div *ngSwitchCase="attributeTypes.text" >
+
+                    <div *ngIf ="filter.AttributeType == attributeTypes.numberFrom" style="margin-bottom: 35px;">
+
+                        <h4>{{filter.Name}}</h4>
+                        <div class="p-formgroup-inline">
+
+                            <div class="grid">
+                                <div class="col">
+                                    <p-inputNumber placeholder="od" id="{{filter.Name}}Id" [(ngModel)]="filter.Value" formControlName ="{{filter.Name}}From"></p-inputNumber>
+                                </div>
+                                <div class="col">
+                                    <p-inputNumber placeholder="do" (onInput)="numberToChange($event, i)" formControlName ="{{filter.Name}}To"></p-inputNumber>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div *ngIf ="filter.AttributeType == attributeTypes.dateFrom" style="margin-bottom: 35px;">
+
+                        <h4>{{filter.Name}}</h4>
+                        <div class="field col-12" style="display: block;">
+                            <div class="p-inputgroup">
+                                <!-- <span class="p-inputgroup-addon">
+                                    <i class="pi pi-user"></i>
+                                </span> -->
+                                <span>
+
+                                    <!-- <label for="{{filter.Name}}Id" class="labelBold">{{filter.Name}}</label> -->
+
+                                    <p-calendar [(ngModel)]="filter.dateRange"
+                                    [touchUI]="isMobile"
+                                    id="{{filter.Name}}Id"
+                                    [showIcon]="true" appendTo="body" ngDefaultControl
+                                    formControlName = "{{filter.Name}}From"
+                                    [yearNavigator]="true" yearRange="1980:2030" selectionMode="range"
+                                    
+                                    ></p-calendar>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngSwitchCase="attributeTypes.multiSelect">
+
+                    <div class="field col-12">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon">
+                                <i class="pi pi-user"></i>
+                            </span>
+                            <span>
+                                <p-multiSelect [options]="filter.ComboboxValues" [(ngModel)]="filter.SelectedValues" optionLabel="Value" display="chip" formControlName ="{{filter.Name}}"></p-multiSelect>
+
+                                <label for="inputgroup" class="labelBold">{{filter.Name}}</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngSwitchCase="attributeTypes.list">
+
+                    <!-- <div class="field-checkbox" *ngIf ="filter.AttributeType == attributeTypes.bit" style="padding-left: 10px;">
+                        <p-checkbox [(ngModel)]="filter.Bit" binary="true" inputId="{{filter.Name}}" formControlName ="{{filter.Name}}"></p-checkbox>
+                        <label for="{{filter.Name}}" style="width: 100%; cursor: pointer;">{{filter.Name}}</label>
+                    </div> -->
+
+                    <div *ngIf ="filter.AttributeType != attributeTypes.bit">
+                        <h4>{{filter.Name}}</h4>
+                        <p-listbox [options]="filter.ComboboxValues" 
+                                    [(ngModel)]="filter.SelectedValues" 
+                                    [metaKeySelection]="false" 
+                                    [checkbox]="true" 
+                                    [filter]="false" 
+                                    [multiple]="true" 
+                                    optionGroupLabel = "aaaaa"
+                                    [showToggleAll] = "false"
+                                    optionLabel="Value" [listStyle]="{'max-height':'250px'}" [style]="{'width':'10rem'}"
+                                    formControlName ="{{filter.Name}}"
+                                    styleClass="listbox-filter"
+                                    [style]="{'width':'100%'}">
+                            <ng-template let-country pTemplate="item">
+                                <div class="country-item">
+                                    <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /> -->
+
+                                    <div>{{country.Value}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+            
+            <p-divider *ngIf="!filter.Hide && filter.AttributeType != attributeTypes.numberTo && 
+            filter.AttributeType != attributeTypes.dateTo"></p-divider>
+        </div>
+
+        <button *ngIf="model?.length != 0" style="width: 100%;" pButton type="button" label="Szukaj" (click)="searchProductsByFilters()" class="p-button-secondary bottomSticky float-right"></button>
+</div>
+
+<p-dialog position="top" [(visible)]="displayDialoEditFilter">
+   <app-edit-filter-dialog></app-edit-filter-dialog>
+    Content
+</p-dialog>
+

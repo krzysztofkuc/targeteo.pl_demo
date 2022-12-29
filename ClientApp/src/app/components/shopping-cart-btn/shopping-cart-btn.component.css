@@ -1,0 +1,15 @@
+.disabled {
+    opacity: 0.5;
+}
+
+#ccx {
+    font-size: 0.1rem;
+}
+
+:host ::ng-deep .mobile.p-badge{
+    /* font-size: 0.1rem; */
+    height: 17px !important;
+    
+    min-width: 1.1rem !important;
+    line-height: 1rem !important;
+}

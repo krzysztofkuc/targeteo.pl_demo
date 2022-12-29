@@ -1,0 +1,49 @@
+<form *ngIf="model" [formGroup]="addCategoryForm" (ngSubmit)="onSubmit(addCategoryForm.value)">
+
+        <div class="field col-12">
+            <label for="categoryNameX">Nazwa kategorii</label>
+            <div id="categoryNameX" class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" [(ngModel)]="model.Category.Name" pInputText placeholder="Nazwa kategorii *" formControlName="categoryName">
+                <p-message severity="error" text=" " *ngIf="!addCategoryForm.controls['categoryName'].valid"></p-message>
+            </div>
+        </div>
+
+        <div class="field col-12">
+            <label for="categoryIconX">Nazwa ikonki</label>
+            <div id="categoryIconX" class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" [(ngModel)]="model.Category.Icon" pInputText placeholder="Nazwa ikonki" formControlName="categoryIcon">
+                <p-message severity="error" text=" " *ngIf="!addCategoryForm.controls['categoryIcon'].valid"></p-message>
+            </div>
+        </div>
+
+        <div class="field col-12">
+            <label for="categoryParentId">Wybierz kategorię nadrzędną</label>
+
+            <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedCatCtrl" id="categoryParentId"></p-tree>
+        </div>
+
+        <div class="card">
+            <h5>Wybierz zdjęcia</h5>
+            
+              <p-fileUpload name="demo[]" url="addPicture($event)" customUpload="true" (uploadHandler)="onUpload($event)" [auto]="true" (onUpload)="onUpload($event)"
+                            multiple="multiple" accept="image/*" maxFileSize="200000" [showCancelButton]="true" chooseLabel="Dodaj zdjęcie">
+                <ng-template pTemplate="content">
+                  <div *ngIf="model.ThumbnailFileName">
+                      <span><img *ngIf="model.ThumbnailFileName" [src]="'assets\\upload\\' + model.ThumbnailFileName" style="max-height: 150px; max-width: 150px; cursor: pointer;" /></span>
+                      <span class="flex justify-content-end flex-wrap card-container green-container" style="display: inline;">
+                        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deletePicture(pic)"></button>
+                      </span>
+                    
+                  </div>
+                </ng-template>
+              </p-fileUpload>
+            
+              <p-message severity="error" text="Dodaj przynajmnije jedno zdjęcie" *ngIf="model?.CurrentProduct?.Pictures == null && uploadedFiles?.length == 0"></p-message>
+          </div>
+
+        <div class="field col-12">
+            <button pButton pRipple type="submit" icon="pi pi-check" class="p-button-success" style="width: 100%;">Zapisz</button>
+        </div>
+</form>
